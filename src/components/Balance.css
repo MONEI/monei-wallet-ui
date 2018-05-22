@@ -1,0 +1,33 @@
+.balance {
+  text-align: center;
+  padding: 15px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.balance__value {
+  font-size: 2.5em;
+  line-height: 1.4em;
+}
+
+.balance__value--changed {
+  animation-name: highlight;
+  animation-duration: 1s;
+}
+
+.balance__label {
+  color: #8c8c8c;
+}
+
+@keyframes highlight {
+  0% {
+    color: #8c8c8c;
+  }
+
+  50% {
+    color: #8c8c8c;
+  }
+
+  100% {
+    color: #389e0d;
+  }
+}

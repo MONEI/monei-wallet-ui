@@ -1,0 +1,46 @@
+body {
+  background: #f0f2f5 url('https://monei.net/images/token/bg.svg') no-repeat !important;
+  background-size: cover;
+  background-attachment: fixed !important;
+}
+
+.ant-layout {
+  background: none !important;
+}
+
+.main-layout {
+  width: 94%;
+  align-self: center;
+  max-width: 740px;
+  margin: 100px 0 50px;
+}
+
+.main-content {
+  border: 1px solid #e8e8e8;
+  border-radius: 2px;
+  background: #fff;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
+
+.main-logo {
+  margin: 0;
+  color: #fff;
+}
+
+.main-footer {
+  text-align: center;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
