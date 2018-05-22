@@ -4,6 +4,10 @@ body {
   background-attachment: fixed !important;
 }
 
+#root > div {
+  height: 100%;
+}
+
 .ant-layout {
   background: none !important;
 }

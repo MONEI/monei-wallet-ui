@@ -9,7 +9,7 @@ class Dashboard extends Component {
   render() {
     return (
       <Layout style={{minHeight: '100%'}}>
-        <Header />
+        <Header changeState={this.props.onStateChange} username={this.props.authData.username}/>
         <Layout className="main-layout">
           <Content className="main-content">
             <Balance />
