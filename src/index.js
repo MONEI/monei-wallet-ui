@@ -4,10 +4,16 @@ import './index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import Amplify from 'aws-amplify';
-import aws_exports from './aws-exports';
 
-
-Amplify.configure(aws_exports);
+Amplify.configure({
+  Auth: {
+    identityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID,
+    region: process.env.REACT_APP_REGION,
+    userPoolId: process.env.REACT_APP_USER_POOL_ID,
+    userPoolWebClientId: process.env.REACT_APP_USER_POOL_WEB_CLIENT_ID,
+    mandatorySignIn: true
+  }
+});
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
