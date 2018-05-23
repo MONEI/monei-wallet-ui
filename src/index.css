@@ -48,3 +48,10 @@ body {
   align-items: center;
   height: 100%;
 }
+
+.amplify-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

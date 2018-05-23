@@ -12,14 +12,13 @@ features:
   sign-in: !com.amazonaws.mobilehub.v0.SignIn 
     attributes:
       enabled: true
-      optional-sign-in: true
+      optional-sign-in: false
     components:
       sign-in-user-pools: !com.amazonaws.mobilehub.v0.UserPoolsIdentityProvider 
         attributes:
           alias-attributes:
             - email
-            - phone_number
-          mfa-configuration: ON
+          mfa-configuration: OFF
           name: userpool
           password-policy: !com.amazonaws.mobilehub.ConvertibleMap 
             min-length: '8'
@@ -27,5 +26,5 @@ features:
             require-numbers: true
             require-symbols: true
             require-upper-case: true
-name: monei-wallet-app-2018-05-22-18-56-01
+name: monei-wallet-test
 region: eu-central-1

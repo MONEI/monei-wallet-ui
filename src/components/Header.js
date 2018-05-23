@@ -1,5 +1,5 @@
 import React from 'react';
-import {Layout, Menu, Avatar, Icon} from 'antd';
+import {Layout, Menu, Icon} from 'antd';
 import {Auth} from 'aws-amplify';
 const {Header} = Layout;
 
