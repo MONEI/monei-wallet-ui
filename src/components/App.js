@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Layout} from 'antd';
 import Header from './Header';
 import Balance from './Balance';
+import Transactions from './Transactions';
 import Amplify, {Auth} from 'aws-amplify';
 import {withAuthenticator} from 'aws-amplify-react';
 import AWSAppSyncClient from 'aws-appsync';
@@ -25,7 +26,8 @@ const client = new AWSAppSyncClient({
   auth: {
     type: AUTH_TYPE.AMAZON_COGNITO_USER_POOLS,
     jwtToken: async () => (await Auth.currentSession()).getIdToken().getJwtToken()
-  }
+  },
+  disableOffline: process.env.NODE_ENV === 'development'
 });
 
 const {Content, Footer} = Layout;
@@ -43,6 +45,7 @@ class App extends Component {
             <Layout className="main-layout">
               <Content className="main-content">
                 <Balance />
+                <Transactions />
               </Content>
             </Layout>
             <Footer className="main-footer">

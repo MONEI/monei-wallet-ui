@@ -1,0 +1,49 @@
+.trx-empty-list {
+  text-align: center;
+  padding: 20px;
+  color: #8c8c8c;
+}
+
+.trx-item {
+  padding: 20px;
+  border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  align-items: center;
+}
+
+.trx-item__spacer {
+  flex: 1;
+}
+
+.trx-item__desc {
+  margin: 0 15px;
+  max-width: 75%;
+}
+
+.trx-item__title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trx-item__sub {
+  color: #9b9b9b;
+  font-size: 0.9em;
+}
+
+.trx-item__value {
+  font-size: 1.8em;
+}
+
+.trx-item.trx-item--completed.trx-item--income {
+  color: #2bae9f;
+}
+
+.trx-item.trx-item--pending {
+   color: #9b9b9b;
+   background: #f5f7fa;
+ }
+
+.trx-item.trx-item--error {
+  color: #fa541c;
+}
