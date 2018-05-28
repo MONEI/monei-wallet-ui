@@ -55,3 +55,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.awsappsync {
+  height: 100%;
+}

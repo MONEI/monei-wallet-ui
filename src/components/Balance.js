@@ -1,16 +1,17 @@
-import React, {Component} from 'react';
+import React from 'react';
+import {graphql} from 'react-apollo';
+import {UserQuery} from '../api/queries';
 import './Balance.css';
 
-class Balance extends Component {
-  render() {
-    return (
-      <div className="balance">
-        <div className="balance__label">Current balance</div>
-        <div className="balance__value">100 EURM</div>
-        <div className="balance__address">{this.props.address}</div>
-      </div>
-    );
-  }
-}
+const Balance = ({data: {loading, error, user}}) => {
+  if (loading) return null;
+  return (
+    <div className="balance">
+      <div className="balance__label">Current balance</div>
+      <div className="balance__value">{user.balance / 100} EURM</div>
+      <div className="balance__address">{user.address}</div>
+    </div>
+  );
+};
 
-export default Balance;
+export default graphql(UserQuery)(Balance);
