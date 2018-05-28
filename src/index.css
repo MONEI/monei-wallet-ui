@@ -42,6 +42,11 @@ body {
   text-align: center;
 }
 
+.new-transaction-form {
+  padding: 15px 15px 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
 .spinner {
   display: flex;
   justify-content: center;

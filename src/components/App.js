@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Layout} from 'antd';
 import Header from './Header';
 import Balance from './Balance';
+import NewTransactionForm from './NewTransactionForm';
 import Transactions from './Transactions';
 import Amplify, {Auth} from 'aws-amplify';
 import {withAuthenticator} from 'aws-amplify-react';
@@ -45,6 +46,7 @@ class App extends Component {
             <Layout className="main-layout">
               <Content className="main-content">
                 <Balance />
+                <NewTransactionForm />
                 <Transactions />
               </Content>
             </Layout>
