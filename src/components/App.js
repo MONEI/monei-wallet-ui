@@ -36,6 +36,9 @@ class App extends Component {
   logout = async () => {
     await Auth.signOut();
     this.props.onStateChange('signedOut');
+    setTimeout(() => {
+      client.resetStore();
+    }, 0);
   };
 
   render() {
