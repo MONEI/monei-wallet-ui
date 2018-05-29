@@ -4,8 +4,8 @@ export const UserDataQuery = gql`
   query GetUserData {
     user {
       address
+      email
       balance
-      username
     }
     outgoingTransactions {
       items {

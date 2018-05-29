@@ -17,7 +17,7 @@ const Dashboard = ({
   if (loading) return <Spinner />;
   return (
     <Layout style={{minHeight: '100%'}}>
-      <Header logout={logout} username={user.username} />
+      <Header logout={logout} username={user.email} />
       <Layout className="main-layout">
         <Content className="main-content">
           <Balance user={user} />

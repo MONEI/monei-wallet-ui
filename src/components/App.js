@@ -1,6 +1,14 @@
 import React, {Component} from 'react';
 import Amplify, {Auth} from 'aws-amplify';
-import {withAuthenticator} from 'aws-amplify-react';
+import SignUp from './SignUp';
+import SignIn from './SignIn';
+import {
+  ConfirmSignIn,
+  ConfirmSignUp,
+  ForgotPassword,
+  VerifyContact,
+  withAuthenticator
+} from 'aws-amplify-react';
 import AWSAppSyncClient from 'aws-appsync';
 import {Rehydrated} from 'aws-appsync-react';
 import {AUTH_TYPE} from 'aws-appsync/lib/link/auth-link';
@@ -29,8 +37,6 @@ const client = new AWSAppSyncClient({
 
 class App extends Component {
   logout = async () => {
-    client.initQueryManager();
-    await client.resetStore();
     await Auth.signOut();
     this.props.onStateChange('signedOut');
   };
@@ -46,4 +52,11 @@ class App extends Component {
   }
 }
 
-export default withAuthenticator(App);
+export default withAuthenticator(App, false, [
+  <SignIn />,
+  <ConfirmSignIn />,
+  <VerifyContact />,
+  <SignUp />,
+  <ConfirmSignUp />,
+  <ForgotPassword />
+]);
