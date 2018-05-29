@@ -24,7 +24,7 @@ const TrxItem = ({item}) => {
       </div>
       <div className="trx-item__spacer" />
       <div className="trx-item__value">
-        {item.income ? '+' : '-'} {item.amount / 100}
+        {item.income ? '+' : '-'} {(item.amount / 100).toFixed(2)}
       </div>
     </div>
   );

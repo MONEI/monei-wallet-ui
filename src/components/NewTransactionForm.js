@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {graphql} from 'react-apollo';
 import {NewTransactionMutation} from '../api/mutations';
-import {TransactionsQuery} from '../api/queries';
+import {UserDataQuery} from '../api/queries';
 import {Form, Input, InputNumber, Button, Row, Col, Modal, message} from 'antd';
 const confirm = Modal.confirm;
 
@@ -85,11 +85,11 @@ const connectedForm = graphql(NewTransactionMutation, {
         },
         update: (proxy, {data: {newTransaction}}) => {
           const data = proxy.readQuery({
-            query: TransactionsQuery
+            query: UserDataQuery
           });
           data.outgoingTransactions.items.push(newTransaction);
           proxy.writeQuery({
-            query: TransactionsQuery,
+            query: UserDataQuery,
             data
           });
         }

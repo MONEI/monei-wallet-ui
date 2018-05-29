@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
-import {Layout} from 'antd';
-import Header from './Header';
-import Balance from './Balance';
-import NewTransactionForm from './NewTransactionForm';
-import Transactions from './Transactions';
 import Amplify, {Auth} from 'aws-amplify';
 import {withAuthenticator} from 'aws-amplify-react';
 import AWSAppSyncClient from 'aws-appsync';
 import {Rehydrated} from 'aws-appsync-react';
 import {AUTH_TYPE} from 'aws-appsync/lib/link/auth-link';
 import {ApolloProvider} from 'react-apollo';
+import Dashboard from './Dashboard';
 
 Amplify.configure({
   Auth: {
@@ -31,32 +27,19 @@ const client = new AWSAppSyncClient({
   disableOffline: process.env.NODE_ENV === 'development'
 });
 
-const {Content, Footer} = Layout;
-
 class App extends Component {
+  logout = async () => {
+    client.initQueryManager();
+    await client.resetStore();
+    await Auth.signOut();
+    this.props.onStateChange('signedOut');
+  };
+
   render() {
     return (
       <ApolloProvider client={client}>
         <Rehydrated>
-          <Layout style={{minHeight: '100%'}}>
-            <Header
-              changeState={this.props.onStateChange}
-              username={this.props.authData.username}
-            />
-            <Layout className="main-layout">
-              <Content className="main-content">
-                <Balance />
-                <NewTransactionForm />
-                <Transactions />
-              </Content>
-            </Layout>
-            <Footer className="main-footer">
-              ©2018{' '}
-              <a href="https://monei.net" rel="noopener noreferrer" target="_blank">
-                monei.net
-              </a>
-            </Footer>
-          </Layout>
+          <Dashboard {...this.props} logout={this.logout} />
         </Rehydrated>
       </ApolloProvider>
     );
