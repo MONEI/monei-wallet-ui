@@ -29,8 +29,8 @@ class NewTransactionForm extends Component {
             to: values.to
           })
             .then(() => form.resetFields())
-            .catch(error => {
-              message.error(error.message);
+            .catch(e => {
+              message.error(e.graphQLErrors[0].message);
             });
         },
         onCancel() {}
@@ -79,14 +79,9 @@ const connectedForm = graphql(NewTransactionMutation, {
   props: ({mutate}) => ({
     newTransaction: ({amount, to}) => {
       return mutate({
-        variables: {
-          amount,
-          to
-        },
+        variables: {amount, to},
         update: (proxy, {data: {newTransaction}}) => {
-          const data = proxy.readQuery({
-            query: UserDataQuery
-          });
+          const data = proxy.readQuery({query: UserDataQuery});
           data.outgoingTransactions.items.push(newTransaction);
           proxy.writeQuery({
             query: UserDataQuery,
