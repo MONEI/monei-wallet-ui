@@ -11,6 +11,7 @@ import {Rehydrated} from 'aws-appsync-react';
 import {AUTH_TYPE} from 'aws-appsync/lib/link/auth-link';
 import {ApolloProvider} from 'react-apollo';
 import Dashboard from './Dashboard';
+import {AWSIoTProvider} from 'aws-amplify/lib/PubSub/Providers';
 
 Amplify.configure({
   Auth: {
@@ -21,6 +22,13 @@ Amplify.configure({
     mandatorySignIn: true
   }
 });
+
+Amplify.addPluggable(
+  new AWSIoTProvider({
+    aws_pubsub_region: process.env.REACT_APP_REGION,
+    aws_pubsub_endpoint: process.env.REACT_APP_IOT_ENDPOINT
+  })
+);
 
 const client = new AWSAppSyncClient({
   url: process.env.REACT_APP_GRAPHQL_ENDPOINT,
