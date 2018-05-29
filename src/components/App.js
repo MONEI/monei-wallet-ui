@@ -2,13 +2,10 @@ import React, {Component} from 'react';
 import Amplify, {Auth} from 'aws-amplify';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
-import {
-  ConfirmSignIn,
-  ConfirmSignUp,
-  ForgotPassword,
-  VerifyContact,
-  withAuthenticator
-} from 'aws-amplify-react';
+import ConfirmSignIn from './ConfirmSignIn';
+import ConfirmSignUp from './ConfirmSignUp';
+import ForgotPassword from './ForgotPassword';
+import {withAuthenticator} from 'aws-amplify-react';
 import AWSAppSyncClient from 'aws-appsync';
 import {Rehydrated} from 'aws-appsync-react';
 import {AUTH_TYPE} from 'aws-appsync/lib/link/auth-link';
@@ -55,7 +52,6 @@ class App extends Component {
 export default withAuthenticator(App, false, [
   <SignIn />,
   <ConfirmSignIn />,
-  <VerifyContact />,
   <SignUp />,
   <ConfirmSignUp />,
   <ForgotPassword />
