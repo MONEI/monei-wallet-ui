@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Layout} from 'antd';
+import {Layout, Alert} from 'antd';
 import Header from './Header';
 import Balance from './Balance';
 import NewTransactionForm from './NewTransactionForm';
@@ -7,34 +7,28 @@ import Transactions from './Transactions';
 import {graphql} from 'react-apollo';
 import {UserDataQuery} from '../api/queries';
 import Spinner from './Spinner';
-import {PubSub} from 'aws-amplify';
+import Notifications from './Notifications';
+import {ApolloConsumer} from 'react-apollo';
 
 const {Content, Footer} = Layout;
 
 class Dashboard extends Component {
-  state = {
-    subscribed: false
-  };
-
-  static getDerivedStateFromProps(props, state) {
-    if (state.subscribed || props.data.loading) return state;
-    PubSub.subscribe(props.data.user.address).subscribe({
-      next: data => console.log('Message received', data),
-      error: error => console.error(error),
-      close: () => console.log('Done')
-    });
-    state.subscribed = true;
-    return state;
-  }
-
   render() {
     const {
       logout,
-      data: {loading, user, outgoingTransactions, incomingTransactions}
+      data: {loading, error, user, outgoingTransactions, incomingTransactions}
     } = this.props;
     if (loading) return <Spinner />;
+    if (error)
+      return (
+        <Alert message="Error" description={error.graphQLErrors[0].message} type="error" showIcon />
+      );
     return (
       <Layout style={{minHeight: '100%'}}>
+        <ApolloConsumer>
+          {client => <Notifications topic={user.address} client={client} />}
+        </ApolloConsumer>
+
         <Header logout={logout} username={user.email} />
         <Layout className="main-layout">
           <Content className="main-content">

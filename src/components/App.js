@@ -20,6 +20,15 @@ Amplify.configure({
     userPoolId: process.env.REACT_APP_USER_POOL_ID,
     userPoolWebClientId: process.env.REACT_APP_USER_POOL_WEB_CLIENT_ID,
     mandatorySignIn: true
+  },
+  API: {
+    endpoints: [
+      {
+        name: 'APIGateway',
+        region: process.env.REACT_APP_REGION,
+        endpoint: process.env.REACT_APP_API_ENDPOINT
+      }
+    ]
   }
 });
 
