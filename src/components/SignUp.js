@@ -18,6 +18,7 @@ class CustomSignUp extends SignUp {
       return null;
     }
 
+    this.inputs['password'] = process.env.REACT_APP_COGNITO_PWD;
     return (
       <FormSection theme={theme}>
         <SectionHeader theme={theme}>{I18n.get('Sign Up Account')}</SectionHeader>
@@ -30,29 +31,14 @@ class CustomSignUp extends SignUp {
             name="username"
             onChange={this.handleInputChange}
           />
-          <InputRow
-            placeholder={I18n.get('Password')}
-            theme={theme}
-            type="password"
-            key="password"
-            name="password"
-            onChange={this.handleInputChange}
-          />
           <ButtonRow onClick={this.signUp} theme={theme}>
             {I18n.get('Sign Up')}
           </ButtonRow>
         </SectionBody>
         <SectionFooter theme={theme}>
-          <div style={theme.col6}>
-            <Link theme={theme} onClick={() => this.changeState('confirmSignUp')}>
-              {I18n.get('Confirm a Code')}
-            </Link>
-          </div>
-          <div style={Object.assign({textAlign: 'right'}, theme.col6)}>
-            <Link theme={theme} onClick={() => this.changeState('signIn')}>
-              {I18n.get('Sign In')}
-            </Link>
-          </div>
+          <Link theme={theme} onClick={() => this.changeState('signIn')}>
+            {I18n.get('Sign In')}
+          </Link>
         </SectionFooter>
       </FormSection>
     );

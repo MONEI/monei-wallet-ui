@@ -4,7 +4,6 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import ConfirmSignIn from './ConfirmSignIn';
 import ConfirmSignUp from './ConfirmSignUp';
-import ForgotPassword from './ForgotPassword';
 import {withAuthenticator} from 'aws-amplify-react';
 import AWSAppSyncClient from 'aws-appsync';
 import {Rehydrated} from 'aws-appsync-react';
@@ -71,6 +70,5 @@ export default withAuthenticator(App, false, [
   <SignIn />,
   <ConfirmSignIn />,
   <SignUp />,
-  <ConfirmSignUp />,
-  <ForgotPassword />
+  <ConfirmSignUp />
 ]);
