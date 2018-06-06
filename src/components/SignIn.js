@@ -25,7 +25,7 @@ class CustomSignIn extends SignIn {
         <SectionBody theme={theme}>
           <InputRow
             autoFocus
-            placeholder={I18n.get('Email')}
+            placeholder={I18n.get('Phone number')}
             theme={theme}
             key="username"
             name="username"

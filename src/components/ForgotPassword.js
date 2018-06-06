@@ -19,7 +19,7 @@ class CustomForgotPassword extends ForgotPassword {
       <div>
         <InputRow
           autoFocus
-          placeholder={I18n.get('Email')}
+          placeholder={I18n.get('Phone number')}
           theme={theme}
           key="username"
           name="username"

@@ -29,7 +29,7 @@ class Dashboard extends Component {
           {client => <Notifications topic={user.address} client={client} />}
         </ApolloConsumer>
 
-        <Header logout={logout} username={user.email} />
+        <Header logout={logout} username={user.phoneNumber} />
         <Layout className="main-layout">
           <Content className="main-content">
             <Balance user={user} />

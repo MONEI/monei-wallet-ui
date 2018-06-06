@@ -5,6 +5,7 @@ export const UserDataQuery = gql`
     user {
       address
       email
+      phoneNumber
       balance
     }
     outgoingTransactions {
