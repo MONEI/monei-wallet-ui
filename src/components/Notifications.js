@@ -7,13 +7,16 @@ class Notifications extends Component {
     subscribed: false
   };
 
-  static getDerivedStateFromProps(props, state) {
+  static dispatchAction(client, action) {
+    console.log(action);
+    client.query({query: UserDataQuery, fetchPolicy: 'network-only'});
+  }
+
+  static getDerivedStateFromProps({topic, client}, state) {
     if (state.subscribed) return state;
-    const data = props.client.readQuery({query: UserDataQuery});
-    console.log(data);
     API.post('APIGateway', '/attach_policy').then(() => {
-      PubSub.subscribe(props.topic).subscribe({
-        next: data => console.log('Message received', data.value),
+      PubSub.subscribe(topic).subscribe({
+        next: data => Notifications.dispatchAction(client, data.value),
         error: error => console.error(error),
         close: () => console.log('Done')
       });

@@ -7,7 +7,7 @@ import './TrxItem.css';
 const TrxItem = ({item}) => {
   const getIconType = () => {
     if (item.status === 'failed') return 'close-circle-o';
-    if (item.status === 'pending') return 'loading';
+    //if (item.status === 'pending') return 'loading';
     if (item.income) return 'login';
     return 'logout';
   };
