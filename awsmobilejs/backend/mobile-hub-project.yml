@@ -10,5 +10,5 @@ features:
     components:
       analytics: !com.amazonaws.mobilehub.v0.PinpointAnalytics {}
   sign-in: !com.amazonaws.mobilehub.v0.SignIn {}
-name: monei-wallet-test
-region: eu-central-1
+name: monei-wallet-staging
+region: eu-west-1
