@@ -16,7 +16,7 @@ class Dashboard extends Component {
   render() {
     const {
       logout,
-      data: {loading, error, user, outgoingTransactions, incomingTransactions}
+      data: {loading, error, user, transactions}
     } = this.props;
     if (loading) return <Spinner />;
     if (error)
@@ -34,10 +34,7 @@ class Dashboard extends Component {
           <Content className="main-content">
             <Balance user={user} />
             <NewTransactionForm />
-            <Transactions
-              incomingTransactions={incomingTransactions}
-              outgoingTransactions={outgoingTransactions}
-            />
+            <Transactions transactions={transactions} />
           </Content>
         </Layout>
         <Footer className="main-footer">

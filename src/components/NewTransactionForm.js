@@ -82,7 +82,7 @@ const connectedForm = graphql(NewTransactionMutation, {
         variables: {amount, to},
         update: (proxy, {data: {newTransaction}}) => {
           const data = proxy.readQuery({query: UserDataQuery});
-          data.outgoingTransactions.items.push(newTransaction);
+          data.transactions.push(newTransaction);
           proxy.writeQuery({
             query: UserDataQuery,
             data

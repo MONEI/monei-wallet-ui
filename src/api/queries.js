@@ -8,27 +8,14 @@ export const UserDataQuery = gql`
       phoneNumber
       balance
     }
-    outgoingTransactions {
-      items {
-        id
-        from
-        to
-        amount
-        status
-        createdAt
-        updatedAt
-      }
-    }
-    incomingTransactions {
-      items {
-        id
-        from
-        to
-        amount
-        status
-        createdAt
-        updatedAt
-      }
+    transactions {
+      id
+      from
+      to
+      amount
+      status
+      createdAt
+      updatedAt
     }
   }
 `;
