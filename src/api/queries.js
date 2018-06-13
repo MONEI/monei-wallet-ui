@@ -16,6 +16,7 @@ export const UserDataQuery = gql`
       status
       createdAt
       updatedAt
+      income
     }
   }
 `;

@@ -10,6 +10,7 @@ export const NewTransactionMutation = gql`
       status
       createdAt
       updatedAt
+      income
     }
   }
 `;

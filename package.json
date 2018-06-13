@@ -3,17 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^3.5.3",
+    "antd": "^3.6.2",
     "aws-amplify": "^0.4.4",
     "aws-amplify-react": "^0.1.50",
-    "aws-appsync": "^1.0.22",
-    "aws-appsync-react": "^1.0.13",
-    "classnames": "^2.2.5",
+    "aws-appsync": "^1.0.23",
+    "aws-appsync-react": "^1.0.14",
+    "classnames": "^2.2.6",
     "graphql-tag": "^2.9.2",
-    "moment": "^2.22.1",
-    "react": "^16.3.2",
+    "moment": "^2.22.2",
+    "react": "^16.4.0",
     "react-apollo": "^2.1.4",
-    "react-dom": "^16.3.2",
+    "react-dom": "^16.4.0",
     "react-scripts": "1.1.4"
   },
   "scripts": {
@@ -23,7 +23,7 @@
     "eject": "react-app-rewired eject"
   },
   "devDependencies": {
-    "babel-plugin-import": "^1.7.0",
+    "babel-plugin-import": "^1.8.0",
     "react-app-rewire-less": "^2.1.1",
     "react-app-rewired": "^1.5.2"
   }
