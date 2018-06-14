@@ -3,15 +3,16 @@ import './MainLayout.css';
 import {Route, NavLink, withRouter} from 'react-router-dom';
 import MainHeader from './MainHeader';
 import {Layout, Alert, Menu, Icon} from 'antd';
-import {graphql} from 'react-apollo';
+import {graphql, ApolloConsumer} from 'react-apollo';
 import {UserQuery} from '../api/queries';
 import Spinner from './Spinner';
 import Transactions from './Transactions';
+import Transfers from './Transfers';
+import Notifications from './Notifications';
 
 const {Content, Footer, Sider} = Layout;
 
 const MainLayout = ({logout, location, data: {loading, error, user}}) => {
-  console.log(location);
   if (loading) return <Spinner />;
   if (error)
     return (
@@ -43,7 +44,7 @@ const MainLayout = ({logout, location, data: {loading, error, user}}) => {
       <Layout className="main-layout__inner">
         <Content className="main-layout__content">
           <Route exact path="/" component={Transactions} />
-          <Route path="/transfers" component={() => 'transfers'} />
+          <Route path="/transfers" component={Transfers} />
         </Content>
         <Footer className="main-footer">
           ©2018{' '}
@@ -52,6 +53,9 @@ const MainLayout = ({logout, location, data: {loading, error, user}}) => {
           </a>
         </Footer>
       </Layout>
+      <ApolloConsumer>
+        {client => <Notifications topic={user.address} client={client} />}
+      </ApolloConsumer>
     </Layout>
   );
 };

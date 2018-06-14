@@ -12,11 +12,6 @@ body {
   background: none !important;
 }
 
-.new-transaction-form {
-  padding: 15px 15px 0;
-  border-bottom: 1px solid #e8e8e8;
-}
-
 .spacer {
   flex: 1;
 }

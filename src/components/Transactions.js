@@ -10,7 +10,7 @@ const Transactions = ({data: {loading, error, transactions}}) => {
   if (transactions.length === 0) {
     return (
       <div className="trx-list">
-        <div className="trx-empty-list">You don't have transactions yet</div>
+        <div className="trx-list__empty">You don't have transactions yet</div>
       </div>
     );
   }

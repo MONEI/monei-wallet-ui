@@ -12,6 +12,13 @@ import {ApolloProvider} from 'react-apollo';
 import MainLayout from './MainLayout';
 import {AWSIoTProvider} from 'aws-amplify/lib/PubSub/Providers';
 import {BrowserRouter as Router} from 'react-router-dom';
+import {message} from 'antd';
+
+message.config({
+  top: 11,
+  duration: 3,
+  maxCount: 3
+});
 
 Amplify.configure({
   Auth: {
