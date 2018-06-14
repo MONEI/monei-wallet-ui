@@ -20,7 +20,7 @@ const MainLayout = ({logout, location, data: {loading, error, user}}) => {
     );
   return (
     <Layout className="main-layout">
-      <MainHeader logout={logout} username={user.phoneNumber} balance={user.balance} />
+      <MainHeader logout={logout} user={user} />
       <Sider className="main-sidebar">
         <Menu
           mode="inline"

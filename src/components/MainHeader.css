@@ -8,8 +8,11 @@
   color: rgba(255, 255, 255, 0.65);
 }
 
-.main-header__balance {
+.main-header__info {
+  line-height: 20px;
   font-size: 1.1em;
+  align-self: center;
+  padding-bottom: 5px;
 }
 
 .main-header__logo {

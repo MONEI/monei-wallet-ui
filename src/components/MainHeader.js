@@ -3,13 +3,16 @@ import './MainHeader.css';
 import {Layout, Icon} from 'antd';
 const {Header} = Layout;
 
-const MainHeader = ({logout, username, balance}) => {
+const MainHeader = ({logout, user}) => {
   return (
     <Header className="main-header">
       <div className="main-header__logo">MONEI Wallet</div>
-      <div className="main-header__balance">Your balance {(balance / 100).toFixed(2)} EURM</div>
+      <div className="main-header__info">
+        <small>{user.address}</small>
+        <div>Your balance {(user.balance / 100).toFixed(2)} EURM</div>
+      </div>
       <div className="spacer" />
-      <div className="main-header__username">{username}</div>
+      <div className="main-header__username">{user.phoneNumber}</div>
       <div className="main-header__logout">
         <Icon type="logout" onClick={logout} />
       </div>
