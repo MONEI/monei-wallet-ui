@@ -1,15 +1,18 @@
 import React from 'react';
-import TrxItem from './TrxItem';
+import TransactionItem from './TransactionItem';
+import {TransactionsQuery} from '../api/queries';
+import {graphql} from 'react-apollo';
 
-const Transactions = ({transactions}) => {
+const Transactions = ({data: {loading, error, transactions}}) => {
+  if (loading) return null;
   if (transactions.length === 0) {
     return <div className="trx-empty-list">You don't have transactions yet</div>;
   }
   return (
     <div className="trx-list">
-      {transactions.map(item => <TrxItem key={item.id} item={item} />)}
+      {transactions.map(item => <TransactionItem key={item.id} item={item} />)}
     </div>
   );
 };
 
-export default Transactions;
+export default graphql(TransactionsQuery)(Transactions);

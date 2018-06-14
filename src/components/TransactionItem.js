@@ -2,12 +2,11 @@ import React from 'react';
 import {Icon} from 'antd';
 import cx from 'classnames';
 import moment from 'moment';
-import './TrxItem.css';
+import './TransactionItem.css';
 
-const TrxItem = ({item}) => {
+const TransactionItem = ({item}) => {
   const getIconType = () => {
     if (item.status === 'failed') return 'close-circle-o';
-    //if (item.status === 'pending') return 'loading';
     if (item.income) return 'login';
     return 'logout';
   };
@@ -20,7 +19,7 @@ const TrxItem = ({item}) => {
             {item.income ? item.from : item.to}
           </a>
         </div>
-        <div className="trx-item__sub">{moment(item.updatedAt).format('D MMMM, YYYY HH:mm')}</div>
+        <div className="trx-item__sub">{moment(item.createdAt).format('D MMMM, YYYY HH:mm')}</div>
       </div>
       <div className="trx-item__spacer" />
       <div className="trx-item__value">
@@ -30,4 +29,4 @@ const TrxItem = ({item}) => {
   );
 };
 
-export default TrxItem;
+export default TransactionItem;

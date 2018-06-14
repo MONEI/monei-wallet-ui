@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const UserDataQuery = gql`
+export const UserQuery = gql`
   query GetUserData {
     user {
       address
@@ -8,6 +8,11 @@ export const UserDataQuery = gql`
       phoneNumber
       balance
     }
+  }
+`;
+
+export const TransactionsQuery = gql`
+  query GetTransactions {
     transactions {
       id
       from

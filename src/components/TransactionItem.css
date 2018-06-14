@@ -44,6 +44,6 @@
    background: #f5f7fa;
  }
 
-.trx-item.trx-item--error {
+.trx-item.trx-item--failed {
   color: #fa541c;
 }

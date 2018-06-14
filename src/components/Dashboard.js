@@ -4,11 +4,10 @@ import Header from './Header';
 import Balance from './Balance';
 import NewTransactionForm from './NewTransactionForm';
 import Transactions from './Transactions';
-import {graphql} from 'react-apollo';
-import {UserDataQuery} from '../api/queries';
+import {graphql, ApolloConsumer} from 'react-apollo';
+import {UserQuery} from '../api/queries';
 import Spinner from './Spinner';
 import Notifications from './Notifications';
-import {ApolloConsumer} from 'react-apollo';
 
 const {Content, Footer} = Layout;
 
@@ -16,7 +15,7 @@ class Dashboard extends Component {
   render() {
     const {
       logout,
-      data: {loading, error, user, transactions}
+      data: {loading, error, user}
     } = this.props;
     if (loading) return <Spinner />;
     if (error)
@@ -25,16 +24,12 @@ class Dashboard extends Component {
       );
     return (
       <Layout style={{minHeight: '100%'}}>
-        <ApolloConsumer>
-          {client => <Notifications topic={user.address} client={client} />}
-        </ApolloConsumer>
-
         <Header logout={logout} username={user.phoneNumber} />
         <Layout className="main-layout">
           <Content className="main-content">
             <Balance user={user} />
             <NewTransactionForm />
-            <Transactions transactions={transactions} />
+            <Transactions />
           </Content>
         </Layout>
         <Footer className="main-footer">
@@ -43,9 +38,12 @@ class Dashboard extends Component {
             monei.net
           </a>
         </Footer>
+        <ApolloConsumer>
+          {client => <Notifications topic={user.address} client={client} />}
+        </ApolloConsumer>
       </Layout>
     );
   }
 }
 
-export default graphql(UserDataQuery)(Dashboard);
+export default graphql(UserQuery)(Dashboard);

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {PubSub, API} from 'aws-amplify/lib/index';
-import {UserDataQuery} from '../api/queries';
+import {createLocalTransaction, updateLocalTransaction} from '../api/utils';
 
 class Notifications extends Component {
   state = {
@@ -9,7 +9,14 @@ class Notifications extends Component {
 
   static dispatchAction(client, action) {
     console.log(action);
-    client.query({query: UserDataQuery, fetchPolicy: 'network-only'});
+    switch (action.type) {
+      case 'TRX_CREATED':
+        createLocalTransaction(client, action.payload);
+        break;
+      case 'TRX_UPDATED':
+        updateLocalTransaction(client, action.payload);
+        break;
+    }
   }
 
   static getDerivedStateFromProps({topic, client}, state) {
