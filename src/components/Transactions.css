@@ -1,0 +1,11 @@
+.trx-empty-list {
+  text-align: center;
+  padding: 20px;
+  color: #8c8c8c;
+}
+
+.trx-list {
+  background: #fff;
+  /*max-width: 900px;*/
+  margin: auto;
+}
