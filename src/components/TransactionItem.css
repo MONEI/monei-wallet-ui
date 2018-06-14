@@ -36,7 +36,11 @@
 }
 
 .trx-item.trx-item--completed.trx-item--income {
-  color: #2bae9f;
+  color: #00b49f;
+}
+
+.trx-item.trx-item--completed:not(.trx-item--income) {
+  color: #787878;
 }
 
 .trx-item.trx-item--pending {

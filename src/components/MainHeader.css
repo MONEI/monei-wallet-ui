@@ -1,0 +1,29 @@
+.main-header {
+  display: flex;
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  padding-left: 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 1.1em;
+}
+
+.main-header__logo {
+  color: #fff;
+  font-size: 1.5em;
+  width: 200px;
+  text-align: center;
+  margin-right: 50px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.main-header__username {
+  margin-right: 20px;
+}
+
+.main-header__logout {
+  cursor: pointer;
+  font-weight: bold;
+}

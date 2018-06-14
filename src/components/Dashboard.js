@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Layout, Alert} from 'antd';
-import Header from './Header';
+import Header from './MainHeader';
 import Balance from './Balance';
 import NewTransactionForm from './NewTransactionForm';
 import Transactions from './Transactions';

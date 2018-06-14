@@ -1,0 +1,25 @@
+.main-layout__content {
+  padding: 25px 50px;
+}
+
+.main-sidebar {
+  padding: 25px 0 ;
+  background: #fff;
+  position: fixed;
+  top: 64px;
+  bottom: 0;
+}
+
+.main-sidebar__menu {
+  border-right: 0;
+}
+
+.main-footer {
+  text-align: center;
+}
+
+.main-layout__inner {
+  margin-left: 200px;
+  padding-top: 64px;
+  height: 100vh;
+}

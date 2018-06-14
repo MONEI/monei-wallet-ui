@@ -9,25 +9,7 @@
   line-height: 1.4em;
 }
 
-.balance__value--changed {
-  animation-name: highlight;
-  animation-duration: 1s;
-}
-
 .balance__label {
+  font-size: 1.2em;
   color: #8c8c8c;
-}
-
-@keyframes highlight {
-  0% {
-    color: #8c8c8c;
-  }
-
-  50% {
-    color: #8c8c8c;
-  }
-
-  100% {
-    color: #389e0d;
-  }
 }

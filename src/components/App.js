@@ -9,8 +9,9 @@ import AWSAppSyncClient from 'aws-appsync';
 import {Rehydrated} from 'aws-appsync-react';
 import {AUTH_TYPE} from 'aws-appsync/lib/link/auth-link';
 import {ApolloProvider} from 'react-apollo';
-import Dashboard from './Dashboard';
+import MainLayout from './MainLayout';
 import {AWSIoTProvider} from 'aws-amplify/lib/PubSub/Providers';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 Amplify.configure({
   Auth: {
@@ -59,7 +60,9 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <Rehydrated>
-          <Dashboard {...this.props} logout={this.logout} />
+          <Router>
+            <MainLayout {...this.props} logout={this.logout} />
+          </Router>
         </Rehydrated>
       </ApolloProvider>
     );

@@ -7,8 +7,8 @@ import './TransactionItem.css';
 const TransactionItem = ({item}) => {
   const getIconType = () => {
     if (item.status === 'failed') return 'close-circle-o';
-    if (item.income) return 'login';
-    return 'logout';
+    if (item.income) return 'plus-circle-o';
+    return 'minus-circle-o';
   };
   return (
     <div className={cx('trx-item', `trx-item--${item.status}`, {'trx-item--income': item.income})}>
@@ -16,7 +16,7 @@ const TransactionItem = ({item}) => {
       <div className="trx-item__desc">
         <div className="trx-item__title">
           <a href={`https://ropsten.etherscan.io/tx/${item.id}`} target="_blank">
-            {item.income ? item.from : item.to}
+            {item.income ? 'Incoming transaction' : 'Outgoing transaction'}
           </a>
         </div>
         <div className="trx-item__sub">{moment(item.createdAt).format('D MMMM, YYYY HH:mm')}</div>
