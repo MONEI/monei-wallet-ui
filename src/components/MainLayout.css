@@ -1,9 +1,9 @@
 .main-layout__content {
   padding: 25px 50px;
+  position: relative;
 }
 
 .main-sidebar {
-  padding: 25px 0 ;
   background: #fff;
   position: fixed;
   top: 64px;

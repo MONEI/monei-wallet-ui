@@ -6,6 +6,7 @@ import {Layout, Alert, Menu, Icon} from 'antd';
 import {graphql} from 'react-apollo';
 import {UserQuery} from '../api/queries';
 import Spinner from './Spinner';
+import Transactions from './Transactions';
 
 const {Content, Footer, Sider} = Layout;
 
@@ -41,7 +42,7 @@ const MainLayout = ({logout, location, data: {loading, error, user}}) => {
       </Sider>
       <Layout className="main-layout__inner">
         <Content className="main-layout__content">
-          <Route exact path="/" component={() => 'transactions'} />
+          <Route exact path="/" component={Transactions} />
           <Route path="/transfers" component={() => 'transfers'} />
         </Content>
         <Footer className="main-footer">

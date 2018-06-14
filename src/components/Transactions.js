@@ -1,10 +1,11 @@
 import React from 'react';
 import TransactionItem from './TransactionItem';
 import {TransactionsQuery} from '../api/queries';
+import Spinner from './Spinner';
 import {graphql} from 'react-apollo';
 
 const Transactions = ({data: {loading, error, transactions}}) => {
-  if (loading) return null;
+  if (loading) return <Spinner />;
   if (transactions.length === 0) {
     return <div className="trx-empty-list">You don't have transactions yet</div>;
   }
