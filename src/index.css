@@ -1,5 +1,5 @@
 body {
-  background: #f0f2f5 url('https://monei.net/images/token/bg.svg') no-repeat !important;
+  background: #f0f2f5 url('https://monei.net/images/token/bg.svg') no-repeat;
   background-size: cover;
   background-attachment: fixed !important;
 }
