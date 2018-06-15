@@ -29,7 +29,8 @@ export const updateLocalTransaction = (client, transaction) => {
     query: TransactionsQuery,
     variables: {from: 0},
     data: produce(transactionsData, draft => {
-      Object.assign(draft.transactions.items.find(trx => trx.id === transaction.id), transaction);
+      const item = draft.transactions.items.find(trx => trx.id === transaction.id);
+      if (item) Object.assign(item, transaction);
     })
   });
   client.writeQuery({
