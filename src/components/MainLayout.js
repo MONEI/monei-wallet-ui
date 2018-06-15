@@ -13,7 +13,7 @@ import Notifications from './Notifications';
 const {Content, Footer, Sider} = Layout;
 
 const MainLayout = ({logout, location, data: {loading, error, user}}) => {
-  if (loading) return <Spinner />;
+  if (loading) return <Spinner size="large" />;
   if (error)
     return (
       <Alert message="Error" description={error.graphQLErrors[0].message} type="error" showIcon />

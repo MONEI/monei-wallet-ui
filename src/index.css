@@ -27,6 +27,11 @@ body {
   bottom: 0;
 }
 
+.spinner.spinner_inline {
+  padding: 25px;
+  position: relative;
+}
+
 .amplify-container {
   display: flex;
   flex-direction: column;

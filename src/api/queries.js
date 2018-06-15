@@ -12,16 +12,19 @@ export const UserQuery = gql`
 `;
 
 export const TransactionsQuery = gql`
-  query GetTransactions {
-    transactions {
-      id
-      from
-      to
-      amount
-      status
-      createdAt
-      updatedAt
-      income
+  query GetTransactions($from: Int, $size: Int) {
+    transactions(from: $from, size: $size) {
+      items {
+        id
+        from
+        to
+        amount
+        status
+        createdAt
+        updatedAt
+        income
+      }
+      total
     }
   }
 `;
