@@ -7,11 +7,12 @@ import {TransactionsQuery, UserQuery} from './queries';
  * @param transaction
  */
 export const createLocalTransaction = (client, transaction) => {
-  const transactionsData = client.readQuery({query: TransactionsQuery});
+  const transactionsData = client.readQuery({query: TransactionsQuery, variables: {from: 0}});
   client.writeQuery({
     query: TransactionsQuery,
+    variables: {from: 0},
     data: produce(transactionsData, draft => {
-      draft.transactions.unshift(transaction);
+      draft.transactions.items.unshift(transaction);
     })
   });
 };
@@ -22,12 +23,13 @@ export const createLocalTransaction = (client, transaction) => {
  * @param transaction
  */
 export const updateLocalTransaction = (client, transaction) => {
-  const transactionsData = client.readQuery({query: TransactionsQuery});
+  const transactionsData = client.readQuery({query: TransactionsQuery, variables: {from: 0}});
   const userData = client.readQuery({query: UserQuery});
   client.writeQuery({
     query: TransactionsQuery,
+    variables: {from: 0},
     data: produce(transactionsData, draft => {
-      Object.assign(draft.transactions.find(trx => trx.id === transaction.id), transaction);
+      Object.assign(draft.transactions.items.find(trx => trx.id === transaction.id), transaction);
     })
   });
   client.writeQuery({

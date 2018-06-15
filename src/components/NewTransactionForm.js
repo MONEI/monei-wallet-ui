@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Input, InputNumber, Button, Row, Col, Modal} from 'antd';
+import {Form, Input, InputNumber, Button, Modal} from 'antd';
 import './NewTransactionForm.css';
 
 const confirm = Modal.confirm;
@@ -34,18 +34,16 @@ class NewTransactionForm extends Component {
   };
 
   render() {
-    const {getFieldDecorator, getFieldsError} = this.props.form;
+    const {getFieldProps, getFieldsError} = this.props.form;
+    const requiredField = name =>
+      getFieldProps(name, {rules: [{required: true, message: 'this field is required'}]});
     return (
-      <Form onSubmit={this.handleSubmit} className="new-transaction-form">
+      <Form onSubmit={this.handleSubmit} layout="horizontal" className="new-transaction-form">
         <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Address">
-          {getFieldDecorator('to', {
-            rules: [{required: true}]
-          })(<Input size="large" />)}
+          <Input {...requiredField('to')} size="large" />
         </Form.Item>
         <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Amount">
-          {getFieldDecorator('amount', {
-            rules: [{required: true}]
-          })(<InputNumber size="large" style={{width: '100%'}} />)}
+          <InputNumber {...requiredField('amount')} size="large" style={{width: '100%'}} />
         </Form.Item>
         <Form.Item wrapperCol={{span: 19, offset: 5}}>
           <Button
