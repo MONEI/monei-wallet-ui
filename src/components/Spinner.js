@@ -8,9 +8,10 @@ class Spinner extends Component {
   };
 
   render() {
+    const {inline, ...props} = this.props;
     return (
-      <div className={cx('spinner', {spinner_inline: this.props.inline})}>
-        <Spin {...this.props} />
+      <div className={cx('spinner', {spinner_inline: inline})}>
+        <Spin {...props} />
       </div>
     );
   }

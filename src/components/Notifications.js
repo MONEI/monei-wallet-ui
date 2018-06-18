@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {PubSub, API} from 'aws-amplify/lib/index';
 import {createLocalTransaction, updateLocalTransaction} from '../api/utils';
+import {message} from 'antd/lib';
 
 class Notifications extends Component {
   state = {
@@ -11,10 +12,13 @@ class Notifications extends Component {
     console.log(action);
     switch (action.type) {
       case 'TRX_CREATED':
-        createLocalTransaction(client, action.payload);
+        const trx = action.payload;
+        createLocalTransaction(client, trx);
+        message.success('New transaction!');
         break;
       case 'TRX_UPDATED':
         updateLocalTransaction(client, action.payload);
+        message.success('Transaction confirmed!');
         break;
     }
   }

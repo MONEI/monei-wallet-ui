@@ -22,6 +22,9 @@ export const TransactionsQuery = gql`
         status
         createdAt
         updatedAt
+        fromInfo
+        toInfo
+        note
         income
       }
       total

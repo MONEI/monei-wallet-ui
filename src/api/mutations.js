@@ -1,8 +1,20 @@
 import gql from 'graphql-tag';
 
 export const NewTransactionMutation = gql`
-  mutation NewTransactionMutation($amount: Int!, $to: String!) {
-    newTransaction(amount: $amount, to: $to) {
+  mutation NewTransactionMutation(
+    $amount: Int!
+    $ethAddress: String
+    $phoneNumber: String
+    $email: String
+    $note: String
+  ) {
+    newTransaction(
+      amount: $amount
+      ethAddress: $ethAddress
+      phoneNumber: $phoneNumber
+      email: $email
+      note: $note
+    ) {
       id
       from
       to
@@ -10,6 +22,9 @@ export const NewTransactionMutation = gql`
       status
       createdAt
       updatedAt
+      fromInfo
+      toInfo
+      note
       income
     }
   }

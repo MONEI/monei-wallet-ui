@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Form, Input, InputNumber, Button, Modal} from 'antd';
 import './NewTransactionForm.css';
 
-const confirm = Modal.confirm;
+const {TextArea} = Input;
+const {confirm} = Modal;
 
 function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -24,8 +25,8 @@ class NewTransactionForm extends Component {
         okText: 'Confirm',
         onOk() {
           return onFormSubmit({
-            amount: values.amount * 100,
-            to: values.to
+            ...values,
+            amount: values.amount * 100
           }).then(() => form.resetFields());
         },
         onCancel() {}
@@ -40,10 +41,19 @@ class NewTransactionForm extends Component {
     return (
       <Form onSubmit={this.handleSubmit} layout="horizontal" className="new-transaction-form">
         <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Address">
-          <Input {...requiredField('to')} size="large" />
+          <Input {...getFieldProps('ethAddress')} size="large" />
+        </Form.Item>
+        <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Phone number">
+          <Input {...getFieldProps('phoneNumber')} size="large" />
+        </Form.Item>
+        <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Email">
+          <Input {...getFieldProps('email')} size="large" />
         </Form.Item>
         <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Amount">
           <InputNumber {...requiredField('amount')} size="large" style={{width: '100%'}} />
+        </Form.Item>
+        <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Note">
+          <TextArea {...getFieldProps('note')} size="large" autosize />
         </Form.Item>
         <Form.Item wrapperCol={{span: 19, offset: 5}}>
           <Button

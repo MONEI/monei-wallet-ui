@@ -28,9 +28,9 @@ class Transfers extends Component {
 
 export default graphql(NewTransactionMutation, {
   props: ({mutate}) => ({
-    newTransaction: ({amount, to}) => {
+    newTransaction: data => {
       return mutate({
-        variables: {amount, to},
+        variables: data,
         update: (client, {data: {newTransaction}}) => {
           createLocalTransaction(client, newTransaction);
         }

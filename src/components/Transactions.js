@@ -21,7 +21,7 @@ const Transactions = ({loading, error, transactions, loadMore}) => {
       <InfiniteScroll
         loadMore={loadMore}
         hasMore={transactions.items.length < transactions.total}
-        loader={<Spinner inline />}
+        loader={<Spinner key={0} inline />}
         initialLoad={false}>
         {transactions.items.map(item => <TransactionItem key={item.id} item={item} />)}
       </InfiniteScroll>
