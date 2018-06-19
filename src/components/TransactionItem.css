@@ -15,22 +15,29 @@
 }
 
 .trx-item__title {
+  font-size: 1.3em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #787878;
 }
 
 .trx-item__sub {
   color: #9b9b9b;
-  font-size: 0.9em;
+}
+
+.trx-item__actions {
+  margin: 0 25px;
 }
 
 .trx-item__value {
+  width: 100px;
+  text-align: right;
   font-size: 1.8em;
 }
 
 .trx-item.trx-item--completed.trx-item--income {
-  color: #00b49f;
+  color: #42a950;
 }
 
 .trx-item.trx-item--completed:not(.trx-item--income) {

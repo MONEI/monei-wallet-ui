@@ -1,15 +1,31 @@
 import React, {Component} from 'react';
-import {Form, Input, InputNumber, Button, Modal} from 'antd';
+import {Form, Input, InputNumber, Button, Modal, Select} from 'antd';
 import './NewTransactionForm.css';
 
 const {TextArea} = Input;
 const {confirm} = Modal;
+const {Option} = Select;
 
-function hasErrors(fieldsError) {
-  return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
+const RECIPIENT_FIELDS = {
+  phoneNumber: {
+    name: 'Phone number',
+    placeholder: '+14325551212'
+  },
+  email: {
+    name: 'Email',
+    placeholder: 'email@example.com'
+  },
+  ethAddress: {
+    name: 'Address',
+    placeholder: '0x1d0c461935E3827b30D125A53543b95ABc21efe8'
+  }
+};
 
 class NewTransactionForm extends Component {
+  state = {
+    recipientField: 'phoneNumber'
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     const {form, onFormSubmit} = this.props;
@@ -36,32 +52,36 @@ class NewTransactionForm extends Component {
 
   render() {
     const {getFieldProps, getFieldsError} = this.props.form;
+    const selectedField = RECIPIENT_FIELDS[this.state.recipientField];
     const requiredField = name =>
       getFieldProps(name, {rules: [{required: true, message: 'this field is required'}]});
     return (
       <Form onSubmit={this.handleSubmit} layout="horizontal" className="new-transaction-form">
-        <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Address">
-          <Input {...getFieldProps('ethAddress')} size="large" />
+        <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Send by">
+          <Select
+            onChange={recipientField => this.setState({recipientField})}
+            value={this.state.recipientField}>
+            {Object.keys(RECIPIENT_FIELDS).map(key => (
+              <Option key={key} value={key}>
+                {RECIPIENT_FIELDS[key].name}
+              </Option>
+            ))}
+          </Select>
         </Form.Item>
-        <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Phone number">
-          <Input {...getFieldProps('phoneNumber')} size="large" />
-        </Form.Item>
-        <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Email">
-          <Input {...getFieldProps('email')} size="large" />
+        <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label={selectedField.name}>
+          <Input
+            {...requiredField(this.state.recipientField)}
+            placeholder={selectedField.placeholder}
+          />
         </Form.Item>
         <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Amount">
-          <InputNumber {...requiredField('amount')} size="large" style={{width: '100%'}} />
+          <InputNumber {...requiredField('amount')} style={{width: '100%'}} precision={2} />
         </Form.Item>
         <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Note">
-          <TextArea {...getFieldProps('note')} size="large" autosize />
+          <TextArea {...getFieldProps('note')} autosize />
         </Form.Item>
         <Form.Item wrapperCol={{span: 19, offset: 5}}>
-          <Button
-            size="large"
-            type="primary"
-            htmlType="submit"
-            disabled={hasErrors(getFieldsError())}
-            style={{width: '100%'}}>
+          <Button type="primary" htmlType="submit" style={{width: '100%'}}>
             Transfer
           </Button>
         </Form.Item>

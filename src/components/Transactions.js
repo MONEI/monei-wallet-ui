@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import './Transactions.css';
 import TransactionItem from './TransactionItem';
 import {TransactionsQuery} from '../api/queries';
@@ -6,6 +6,8 @@ import Spinner from './Spinner';
 import {graphql} from 'react-apollo';
 import InfiniteScroll from 'react-infinite-scroller';
 import produce from 'immer';
+import groupBy from 'lodash.groupby';
+import moment from 'moment';
 
 const Transactions = ({loading, error, transactions, loadMore}) => {
   if (loading) return <Spinner size="large" />;
@@ -16,16 +18,26 @@ const Transactions = ({loading, error, transactions, loadMore}) => {
       </div>
     );
   }
+  const groupedTransactions = groupBy(transactions.items, trx =>
+    moment(trx.createdAt)
+      .startOf('day')
+      .format('dddd, D MMMM, YYYY')
+  );
+  console.log(groupedTransactions);
   return (
-    <div className="trx-list">
-      <InfiniteScroll
-        loadMore={loadMore}
-        hasMore={transactions.items.length < transactions.total}
-        loader={<Spinner key={0} inline />}
-        initialLoad={false}>
-        {transactions.items.map(item => <TransactionItem key={item.id} item={item} />)}
-      </InfiniteScroll>
-    </div>
+    <InfiniteScroll
+      className="trx-list"
+      loadMore={loadMore}
+      hasMore={transactions.items.length < transactions.total}
+      loader={<Spinner key={0} inline />}
+      initialLoad={false}>
+      {Object.keys(groupedTransactions).map(day => (
+        <Fragment key={day}>
+          <div className="trx-list-separator">{day}</div>
+          {groupedTransactions[day].map(item => <TransactionItem key={item.id} item={item} />)}
+        </Fragment>
+      ))}
+    </InfiniteScroll>
   );
 };
 
