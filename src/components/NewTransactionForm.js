@@ -42,7 +42,7 @@ class NewTransactionForm extends Component {
           return onFormSubmit({
             ...values,
             amount: values.amount * 100
-          }).then(() => form.resetFields());
+          }).then(reset => reset && form.resetFields());
         },
         onCancel() {}
       });

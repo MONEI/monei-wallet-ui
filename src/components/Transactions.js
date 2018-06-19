@@ -18,6 +18,7 @@ const Transactions = ({loading, error, transactions, loadMore}) => {
       </div>
     );
   }
+
   const groupedTransactions = groupBy(transactions.items, trx =>
     moment(trx.createdAt)
       .startOf('day')

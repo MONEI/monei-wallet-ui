@@ -7,15 +7,14 @@ import {message} from 'antd/lib';
 import {Card} from 'antd';
 
 class Transfers extends Component {
-  handleNewTransaction = data => {
-    return this.props
-      .newTransaction(data)
-      .then(() => {
-        message.success('Transfer was successful');
-      })
-      .catch(e => {
-        message.error(e.graphQLErrors[0].message);
-      });
+  handleNewTransaction = async data => {
+    try {
+      await this.props.newTransaction(data);
+      message.success('Transfer was successful');
+      return true;
+    } catch (error) {
+      message.error(error.graphQLErrors[0].message);
+    }
   };
 
   render() {

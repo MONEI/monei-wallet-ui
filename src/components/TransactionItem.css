@@ -45,10 +45,17 @@
 }
 
 .trx-item.trx-item--pending {
-   color: #9b9b9b;
-   background: #f5f7fa;
- }
+  color: #9b9b9b;
+  background: #f7f9fc;
+}
 
 .trx-item.trx-item--failed {
   color: #fa541c;
+}
+
+.trx-item__pending {
+  align-self: center;
+  margin-left: 5px;
+  font-size: 0.9em;
+  color: #cdcdcd;
 }

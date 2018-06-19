@@ -31,6 +31,9 @@ const TransactionItem = ({item}) => {
       <div className="trx-item__value">
         {item.income ? '+' : '-'} {(item.amount / 100).toFixed(2)}
       </div>
+      <div className="trx-item__pending">
+        {item.status === 'pending' && <Icon type="clock-circle" />}
+      </div>
     </div>
   );
 };
