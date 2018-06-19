@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Form, Input, InputNumber, Button, Modal, Select} from 'antd';
-import './NewTransactionForm.css';
 
 const {TextArea} = Input;
 const {confirm} = Modal;
@@ -51,13 +50,13 @@ class NewTransactionForm extends Component {
   };
 
   render() {
-    const {getFieldProps, getFieldsError} = this.props.form;
+    const {getFieldProps} = this.props.form;
     const selectedField = RECIPIENT_FIELDS[this.state.recipientField];
     const requiredField = name =>
       getFieldProps(name, {rules: [{required: true, message: 'this field is required'}]});
     return (
       <Form onSubmit={this.handleSubmit} layout="horizontal" className="new-transaction-form">
-        <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Send by">
+        <Form.Item labelCol={{span: 6}} wrapperCol={{span: 18}} label="Send by">
           <Select
             onChange={recipientField => this.setState({recipientField})}
             value={this.state.recipientField}>
@@ -68,19 +67,19 @@ class NewTransactionForm extends Component {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label={selectedField.name}>
+        <Form.Item labelCol={{span: 6}} wrapperCol={{span: 18}} label={selectedField.name}>
           <Input
             {...requiredField(this.state.recipientField)}
             placeholder={selectedField.placeholder}
           />
         </Form.Item>
-        <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Amount">
+        <Form.Item labelCol={{span: 6}} wrapperCol={{span: 18}} label="Amount">
           <InputNumber {...requiredField('amount')} style={{width: '100%'}} precision={2} />
         </Form.Item>
-        <Form.Item labelCol={{span: 5}} wrapperCol={{span: 19}} label="Note">
+        <Form.Item labelCol={{span: 6}} wrapperCol={{span: 18}} label="Note">
           <TextArea {...getFieldProps('note')} autosize />
         </Form.Item>
-        <Form.Item wrapperCol={{span: 19, offset: 5}}>
+        <Form.Item wrapperCol={{span: 18, offset: 6}}>
           <Button type="primary" htmlType="submit" style={{width: '100%'}}>
             Transfer
           </Button>

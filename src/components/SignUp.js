@@ -18,7 +18,6 @@ class CustomSignUp extends SignUp {
       return null;
     }
 
-    this.inputs['password'] = process.env.REACT_APP_COGNITO_PWD;
     return (
       <FormSection theme={theme}>
         <SectionHeader theme={theme}>{I18n.get('Sign Up Account')}</SectionHeader>
@@ -29,6 +28,14 @@ class CustomSignUp extends SignUp {
             theme={theme}
             key="username"
             name="username"
+            onChange={this.handleInputChange}
+          />
+          <InputRow
+            placeholder={I18n.get('Password')}
+            theme={theme}
+            key="password"
+            type="password"
+            name="password"
             onChange={this.handleInputChange}
           />
           <ButtonRow onClick={this.signUp} theme={theme}>

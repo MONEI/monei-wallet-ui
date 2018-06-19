@@ -23,7 +23,7 @@ const Transactions = ({loading, error, transactions, loadMore}) => {
       .startOf('day')
       .format('dddd, D MMMM, YYYY')
   );
-  console.log(groupedTransactions);
+
   return (
     <InfiniteScroll
       className="trx-list"

@@ -10,7 +10,7 @@
 
 .main-header__info {
   line-height: 20px;
-  font-size: 1.1em;
+  font-size: 1.3em;
   align-self: center;
   padding-bottom: 5px;
 }
@@ -18,7 +18,7 @@
 .main-header__logo {
   color: #fff;
   font-size: 1.5em;
-  width: 200px;
+  width: 199px;
   text-align: center;
   margin-right: 50px;
   flex-shrink: 0;

@@ -4,6 +4,7 @@ import {NewTransactionMutation} from '../api/mutations';
 import {createLocalTransaction} from '../api/utils';
 import NewTransactionForm from './NewTransactionForm';
 import {message} from 'antd/lib';
+import {Card} from 'antd';
 
 class Transfers extends Component {
   handleNewTransaction = data => {
@@ -20,7 +21,9 @@ class Transfers extends Component {
   render() {
     return (
       <div className="transfers">
-        <NewTransactionForm onFormSubmit={this.handleNewTransaction} />
+        <Card title="New transfer" style={{maxWidth: 550}}>
+          <NewTransactionForm onFormSubmit={this.handleNewTransaction} />
+        </Card>
       </div>
     );
   }

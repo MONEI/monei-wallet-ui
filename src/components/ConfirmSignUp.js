@@ -33,7 +33,7 @@ class CustomConfirmSignUp extends ConfirmSignUp {
             <MessageRow>{username}</MessageRow>
           ) : (
             <InputRow
-              placeholder={I18n.get('Username')}
+              placeholder={I18n.get('Phone number')}
               theme={theme}
               key="username"
               name="username"

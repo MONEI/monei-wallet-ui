@@ -9,6 +9,7 @@ import Spinner from './Spinner';
 import Transactions from './Transactions';
 import Transfers from './Transfers';
 import Notifications from './Notifications';
+import Account from './Account';
 
 const {Content, Footer, Sider} = Layout;
 
@@ -39,12 +40,19 @@ const MainLayout = ({logout, location, data: {loading, error, user}}) => {
               Transfers
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="/account">
+            <Icon type="setting" />
+            <NavLink to="/account" className="nav-text">
+              Account
+            </NavLink>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="main-layout__inner">
         <Content className="main-layout__content">
           <Route exact path="/" component={Transactions} />
           <Route path="/transfers" component={Transfers} />
+          <Route path="/account" component={props => <Account {...props} user={user} />} />
         </Content>
         <Footer className="main-footer">
           ©2018{' '}
