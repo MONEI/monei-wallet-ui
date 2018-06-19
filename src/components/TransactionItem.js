@@ -1,7 +1,6 @@
 import React from 'react';
 import {Icon} from 'antd';
 import cx from 'classnames';
-import {formatIfPhone} from '../lib/utils';
 import './TransactionItem.css';
 
 const TransactionItem = ({item}) => {
@@ -11,9 +10,8 @@ const TransactionItem = ({item}) => {
     return 'minus-circle-o';
   };
   const getTitle = () => {
-    if (item.income)
-      return item.fromInfo ? `from: ${formatIfPhone(item.fromInfo)}` : 'Incoming transaction';
-    return item.toInfo ? `to: ${formatIfPhone(item.toInfo)}` : 'Outgoing transaction';
+    if (item.income) return item.fromInfo ? item.fromInfo : 'Incoming transaction';
+    return item.toInfo ? item.toInfo : 'Outgoing transaction';
   };
   return (
     <div className={cx('trx-item', `trx-item--${item.status}`, {'trx-item--income': item.income})}>
