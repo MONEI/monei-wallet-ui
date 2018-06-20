@@ -13,7 +13,7 @@ import {
 
 class CustomConfirmSignIn extends ConfirmSignIn {
   showComponent(theme) {
-    const {hide, authData} = this.props;
+    const {hide} = this.props;
     if (hide && hide.includes(ConfirmSignIn)) {
       return null;
     }

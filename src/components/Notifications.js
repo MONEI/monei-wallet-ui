@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import {Component} from 'react';
 import {PubSub, API} from 'aws-amplify/lib/index';
 import {createLocalTransaction, updateLocalTransaction} from '../api/utils';
 import {message} from 'antd/lib';
@@ -20,6 +20,8 @@ class Notifications extends Component {
         updateLocalTransaction(client, action.payload);
         message.success('Transaction confirmed!');
         break;
+      default:
+        console.log('Unknown action');
     }
   }
 
