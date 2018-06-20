@@ -21,10 +21,14 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "start": "sh -ac '. .env.${REACT_APP_ENV}; react-app-rewired start'",
+    "build": "sh -ac '. .env.${REACT_APP_ENV}; react-app-rewired build'",
+    "start:staging": "REACT_APP_ENV=staging npm run start",
+    "start:develop": "REACT_APP_ENV=develop npm run start",
+    "build:staging": "REACT_APP_ENV=staging npm run build",
+    "build:develop": "REACT_APP_ENV=develop npm run build"
   },
   "devDependencies": {
     "babel-plugin-import": "^1.8.0",
