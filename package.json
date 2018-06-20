@@ -24,7 +24,7 @@
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app-rewired eject",
     "start": "node -r dotenv/config ./node_modules/.bin/react-app-rewired start dotenv_config_path=.env.${REACT_APP_ENV}",
-    "build": "node -r dotenv/config ./node_modules/.bin/react-app-rewired build dotenv_config_path=.env.${REACT_APP_ENV}'",
+    "build": "node -r dotenv/config ./node_modules/.bin/react-app-rewired build dotenv_config_path=.env.${REACT_APP_ENV}",
     "start:staging": "REACT_APP_ENV=staging npm run start",
     "start:develop": "REACT_APP_ENV=develop npm run start",
     "build:staging": "REACT_APP_ENV=staging npm run build",
