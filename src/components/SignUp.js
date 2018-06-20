@@ -43,9 +43,16 @@ class CustomSignUp extends SignUp {
           </ButtonRow>
         </SectionBody>
         <SectionFooter theme={theme}>
-          <Link theme={theme} onClick={() => this.changeState('signIn')}>
-            {I18n.get('Sign In')}
-          </Link>
+          <div style={theme.col6}>
+            <Link theme={theme} onClick={() => this.changeState('confirmSignUp')}>
+              {I18n.get('Confirm a Code')}
+            </Link>
+          </div>
+          <div style={Object.assign({textAlign: 'right'}, theme.col6)}>
+            <Link theme={theme} onClick={() => this.changeState('signIn')}>
+              {I18n.get('Sign In')}
+            </Link>
+          </div>
         </SectionFooter>
       </FormSection>
     );
