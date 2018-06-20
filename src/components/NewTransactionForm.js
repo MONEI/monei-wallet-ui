@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Input, InputNumber, Button, Modal, Select} from 'antd';
+import {Form, Input, InputNumber, Button, Modal, Select, Icon} from 'antd';
 
 const {TextArea} = Input;
 const {confirm} = Modal;
@@ -15,7 +15,7 @@ const RECIPIENT_FIELDS = {
     placeholder: 'email@example.com'
   },
   ethAddress: {
-    name: 'Address',
+    name: 'Wallet address',
     placeholder: '0x1d0c461935E3827b30D125A53543b95ABc21efe8'
   }
 };
@@ -81,6 +81,7 @@ class NewTransactionForm extends Component {
         </Form.Item>
         <Form.Item wrapperCol={{span: 18, offset: 6}}>
           <Button type="primary" htmlType="submit" style={{width: '100%'}}>
+            <Icon type="export" />
             Transfer
           </Button>
         </Form.Item>
