@@ -1,0 +1,36 @@
+language: node_js
+node_js:
+- 8.1
+cache:
+  directories:
+  - node_modules
+stages:
+- name: deploy_master
+  if: branch = master
+- name: deploy_dev
+  if: branch = develop
+jobs:
+  include:
+  - stage: deploy_dev
+    env:
+      - REACT_APP_ENV=develop
+      - AWS_DEFAULT_REGION=eu-west-1
+      - secure: "gCLmkq1M6hrakK89cG8OsY89bGPErX3ev23zsVXAlwz5zvQ8Pe2XkQTJwlaXxO8jMb16nLd7V62G++zwsdln32hZFF2W3STSDv+6o9+TRz1Kdh0Q39mo+LkEjoAg14f6yrZj9DEUahkfEKK94StSNurPt4FghxnrTHAb1oATGmx+EEaHuqz3e4xCbigX3cJVVdvy/d+RGampYeEJgqpNZ2c37gtOWUJP64AftJYc8jGcGjoYfSlo/JysgMtZ5w173bSmvAwW1W3RgTLygda2o0YjVwkwo6EEFI+9i2xg+pGnPt8xGZMr+A1x+9xZ65lY2Ygic6x55rNhZVB3x/NuVCFZoxoUu8yTEenJqAxh0paZmTrdIZ0Unf66vv8zoD0HbWX42/DC8tDwRfNWQDa9HTMd9W4kvohq9jxk5XaSH/Gv7dL2aO/U8teHPQwOHMFVPgYRQG+IScMQZEQSZdvIHnskyvn5dYE9E/+A0/KY6pOHcnmuUm7AjtJDuHAk2tmcsX9liodAE41MKzmtIhMdkHpbpm2Fr9gMLTjLI1+MwBdYs+RPgjSF8eJe9pgfbB+Qas0ts201hDTv+D0+qh5NAPcyuYRBGDwjTHCUfcb2kUIovaZLHr7t8kTmiyr9eYEHeDdk//Sj3Z8ypqYOo5HtQkYHvlb1Gi48M8GsdG6Grp0="
+            - secure: "T/oQkFwTRN/d7m8fMLYr/7ll8Gnxjw3F5PwnwbE9FWbyTusxWadunpOG23v3kj8g+T5r03FtFZllSPPziYZbBQDutjWfR5SzTFhlOm0N9gfWRyXj9Zxy7Q7bp89nSPRP3UucCuObH0lgxhGUkj+5xLld4BSa8js8pMsAFqL1PdpoFUzFfIwb/hm7q1YNZ0hubMPb2LsXgZ+cPns1xfgB+BgzlvBI1ezes3sOup78OoaCi/PKcyUiFDdnUVJJQeqlUlCyq0qEYUCz4xF2vqXa3JokVRmCggLqqz+XYo/6hs/Ezv2fLli8+kkVjwpBQ7huisZe2gBZKVuBN1wabc36dtpxxDnf82snzP/bW0dFwAqy8TP9Uz5514pUgTPCuDx+TMtJokTf3G3r/hPjMstIvRAg+QnppQql3MQD+bcQb2kr+d43knK3CZrkgGwJCwwxtTUABs2WZgVRLU1g5RSJfigdlwSPalI4uUp31DnUVi2L56t9gl4j0Unh4UhqwOmhfJWRWjcRjdWvEycK10YY39VYFtwB+5VU4uluQpeEEA9sO/fsOfzRvY3ZsuPKqOkEw/i/+dtFTNNFwQj7gdE6aBYqvHZyIasPfLPtUQZ0CtziCnummfjHhR4UtPdE3ysvnd4Xgac/Ohg0aj7hzYhUYMeAKULi/OlzKgwY7LuRPFY="
+    script:
+    - yarn global add awsmobile-cli
+    - awsmobile configure aws $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_DEFAULT_REGION
+    - awsmobile init fcac8ee4-f5db-4772-abc7-000b391f0864
+    - awsmobile publish -c
+
+  - stage: deploy_master
+    env:
+      - REACT_APP_ENV=develop
+      - AWS_DEFAULT_REGION=eu-west-1
+      - secure: "gCLmkq1M6hrakK89cG8OsY89bGPErX3ev23zsVXAlwz5zvQ8Pe2XkQTJwlaXxO8jMb16nLd7V62G++zwsdln32hZFF2W3STSDv+6o9+TRz1Kdh0Q39mo+LkEjoAg14f6yrZj9DEUahkfEKK94StSNurPt4FghxnrTHAb1oATGmx+EEaHuqz3e4xCbigX3cJVVdvy/d+RGampYeEJgqpNZ2c37gtOWUJP64AftJYc8jGcGjoYfSlo/JysgMtZ5w173bSmvAwW1W3RgTLygda2o0YjVwkwo6EEFI+9i2xg+pGnPt8xGZMr+A1x+9xZ65lY2Ygic6x55rNhZVB3x/NuVCFZoxoUu8yTEenJqAxh0paZmTrdIZ0Unf66vv8zoD0HbWX42/DC8tDwRfNWQDa9HTMd9W4kvohq9jxk5XaSH/Gv7dL2aO/U8teHPQwOHMFVPgYRQG+IScMQZEQSZdvIHnskyvn5dYE9E/+A0/KY6pOHcnmuUm7AjtJDuHAk2tmcsX9liodAE41MKzmtIhMdkHpbpm2Fr9gMLTjLI1+MwBdYs+RPgjSF8eJe9pgfbB+Qas0ts201hDTv+D0+qh5NAPcyuYRBGDwjTHCUfcb2kUIovaZLHr7t8kTmiyr9eYEHeDdk//Sj3Z8ypqYOo5HtQkYHvlb1Gi48M8GsdG6Grp0="
+      - secure: "T/oQkFwTRN/d7m8fMLYr/7ll8Gnxjw3F5PwnwbE9FWbyTusxWadunpOG23v3kj8g+T5r03FtFZllSPPziYZbBQDutjWfR5SzTFhlOm0N9gfWRyXj9Zxy7Q7bp89nSPRP3UucCuObH0lgxhGUkj+5xLld4BSa8js8pMsAFqL1PdpoFUzFfIwb/hm7q1YNZ0hubMPb2LsXgZ+cPns1xfgB+BgzlvBI1ezes3sOup78OoaCi/PKcyUiFDdnUVJJQeqlUlCyq0qEYUCz4xF2vqXa3JokVRmCggLqqz+XYo/6hs/Ezv2fLli8+kkVjwpBQ7huisZe2gBZKVuBN1wabc36dtpxxDnf82snzP/bW0dFwAqy8TP9Uz5514pUgTPCuDx+TMtJokTf3G3r/hPjMstIvRAg+QnppQql3MQD+bcQb2kr+d43knK3CZrkgGwJCwwxtTUABs2WZgVRLU1g5RSJfigdlwSPalI4uUp31DnUVi2L56t9gl4j0Unh4UhqwOmhfJWRWjcRjdWvEycK10YY39VYFtwB+5VU4uluQpeEEA9sO/fsOfzRvY3ZsuPKqOkEw/i/+dtFTNNFwQj7gdE6aBYqvHZyIasPfLPtUQZ0CtziCnummfjHhR4UtPdE3ysvnd4Xgac/Ohg0aj7hzYhUYMeAKULi/OlzKgwY7LuRPFY="
+    script:
+      - yarn global add awsmobile-cli
+      - awsmobile configure aws $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_DEFAULT_REGION
+      - awsmobile init d5dc527a-a003-472b-a259-085080f553ac
+      - awsmobile publish -c
