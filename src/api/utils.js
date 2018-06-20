@@ -34,7 +34,11 @@ export const updateLocalTransaction = (client, transaction) => {
       data: produce(transactionsData, draft => {
         draft.transactions.items = draft.transactions.items || [];
         const item = draft.transactions.items.find(trx => trx.id === transaction.id);
-        if (item) Object.assign(item, transaction);
+        if (item) {
+          Object.assign(item, transaction);
+        } else {
+          draft.transactions.items.unshift(transaction);
+        }
       })
     });
   } catch (_) {}
