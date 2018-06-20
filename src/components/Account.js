@@ -8,7 +8,7 @@ const Account = ({user}) => {
         <dl>
           <dt>Phone number</dt>
           <dd>{user.phoneNumber}</dd>
-          <dt>Address</dt>
+          <dt>Wallet address</dt>
           <dd>{user.address}</dd>
         </dl>
       </Card>

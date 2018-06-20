@@ -19,7 +19,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #787878;
+  color: rgba(0, 0, 0, 0.65);
 }
 
 .trx-item__sub {
@@ -37,11 +37,11 @@
 }
 
 .trx-item.trx-item--completed.trx-item--income {
-  color: #42a950;
+  color: #389e0d;
 }
 
 .trx-item.trx-item--completed:not(.trx-item--income) {
-  color: #787878;
+  color: rgba(0, 0, 0, 0.65);
 }
 
 .trx-item.trx-item--pending {
