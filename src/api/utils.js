@@ -13,6 +13,7 @@ export const createLocalTransaction = (client, transaction) => {
       query: TransactionsQuery,
       variables: {from: 0},
       data: produce(transactionsData, draft => {
+        draft.transactions.items = draft.transactions.items || [];
         draft.transactions.items.unshift(transaction);
       })
     });
@@ -31,6 +32,7 @@ export const updateLocalTransaction = (client, transaction) => {
       query: TransactionsQuery,
       variables: {from: 0},
       data: produce(transactionsData, draft => {
+        draft.transactions.items = draft.transactions.items || [];
         const item = draft.transactions.items.find(trx => trx.id === transaction.id);
         if (item) Object.assign(item, transaction);
       })

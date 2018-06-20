@@ -50,9 +50,16 @@ class CustomSignIn extends SignIn {
           />
         </SectionBody>
         <SectionFooter theme={theme}>
-          <Link theme={theme} onClick={() => this.changeState('signUp')}>
-            {I18n.get('Sign Up')}
-          </Link>
+          <div style={theme.col6}>
+            <Link theme={theme} onClick={() => this.changeState('forgotPassword')}>
+              {I18n.get('Forgot Password')}
+            </Link>
+          </div>
+          <div style={Object.assign({textAlign: 'right'}, theme.col6)}>
+            <Link theme={theme} onClick={() => this.changeState('signUp')}>
+              {I18n.get('Sign Up')}
+            </Link>
+          </div>
         </SectionFooter>
       </FormSection>
     );
