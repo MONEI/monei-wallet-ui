@@ -1,11 +1,8 @@
 import React, {Fragment} from 'react';
 import './Transactions.css';
 import TransactionItem from './TransactionItem';
-import {TransactionsQuery} from '../api/queries';
-import Spinner from './Spinner';
-import {graphql} from 'react-apollo';
+import Spinner from 'components/Spinner';
 import InfiniteScroll from 'react-infinite-scroller';
-import produce from 'immer';
 import groupBy from 'lodash.groupby';
 import moment from 'moment';
 
@@ -42,22 +39,4 @@ const Transactions = ({loading, error, transactions, loadMore}) => {
   );
 };
 
-export default graphql(TransactionsQuery, {
-  options: {
-    variables: {from: 0}
-  },
-  props: ({data}) => ({
-    loadMore: () => {
-      data.fetchMore({
-        variables: {from: data.transactions.items.length},
-        updateQuery: (prev, {fetchMoreResult}) => {
-          if (!fetchMoreResult) return prev;
-          return produce(prev, ({transactions}) => {
-            transactions.items = transactions.items.concat(fetchMoreResult.transactions.items);
-          });
-        }
-      });
-    },
-    ...data
-  })
-})(Transactions);
+export default Transactions;
