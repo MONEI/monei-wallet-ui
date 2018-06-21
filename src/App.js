@@ -1,20 +1,22 @@
 import React, {Component} from 'react';
 import Amplify, {Auth, Interactions} from 'aws-amplify';
-import SignUp from './SignUp';
-import SignIn from './SignIn';
-import ConfirmSignIn from './ConfirmSignIn';
-import ConfirmSignUp from './ConfirmSignUp';
-import ForgotPassword from './ForgotPassword';
-import RequireNewPassword from './RequireNewPassword';
-import {withAuthenticator, VerifyContact} from 'aws-amplify-react';
+import {withAuthenticator} from 'aws-amplify-react';
 import AWSAppSyncClient from 'aws-appsync';
 import {Rehydrated} from 'aws-appsync-react';
 import {AUTH_TYPE} from 'aws-appsync/lib/link/auth-link';
 import {ApolloProvider} from 'react-apollo';
-import MainLayout from './MainLayout';
+import MainLayout from './layout';
 import {AWSIoTProvider} from 'aws-amplify/lib/PubSub/Providers';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {message} from 'antd';
+
+import SignUp from './components/Auth/SignUp';
+import SignIn from './components/Auth/SignIn';
+import ConfirmSignIn from './components/Auth/ConfirmSignIn';
+import ConfirmSignUp from './components/Auth/ConfirmSignUp';
+import ForgotPassword from './components/Auth/ForgotPassword';
+import RequireNewPassword from './components/Auth/RequireNewPassword';
+import VerifyContact from './components/Auth/VerifyContact';
 
 message.config({
   top: 11,

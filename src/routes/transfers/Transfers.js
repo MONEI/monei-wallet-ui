@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import {graphql} from 'react-apollo';
-import {NewTransactionMutation} from '../api/mutations';
-import {createLocalTransaction} from '../api/utils';
 import NewTransactionForm from './NewTransactionForm';
 import {message} from 'antd/lib';
 import {Card} from 'antd';
@@ -28,15 +25,4 @@ class Transfers extends Component {
   }
 }
 
-export default graphql(NewTransactionMutation, {
-  props: ({mutate}) => ({
-    newTransaction: data => {
-      return mutate({
-        variables: data,
-        update: (client, {data: {newTransaction}}) => {
-          createLocalTransaction(client, newTransaction);
-        }
-      });
-    }
-  })
-})(Transfers);
+export default Transfers;
