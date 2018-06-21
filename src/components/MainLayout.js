@@ -62,7 +62,7 @@ const MainLayout = ({logout, location, data: {loading, error, user}}) => {
         </Footer>
       </Layout>
       <ApolloConsumer>
-        {client => <Notifications topic={user.address} client={client} />}
+      {client => <Notifications topic={user.address} client={client} />}
       </ApolloConsumer>
     </Layout>
   );

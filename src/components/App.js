@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import Amplify, {Auth} from 'aws-amplify';
+import Amplify, {Auth, Interactions} from 'aws-amplify';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import ConfirmSignIn from './ConfirmSignIn';
 import ConfirmSignUp from './ConfirmSignUp';
-import {withAuthenticator} from 'aws-amplify-react';
+import ForgotPassword from './ForgotPassword';
+import RequireNewPassword from './RequireNewPassword';
+import {withAuthenticator, VerifyContact} from 'aws-amplify-react';
 import AWSAppSyncClient from 'aws-appsync';
 import {Rehydrated} from 'aws-appsync-react';
 import {AUTH_TYPE} from 'aws-appsync/lib/link/auth-link';
@@ -19,6 +21,19 @@ message.config({
   duration: 3,
   maxCount: 3
 });
+
+// TODO: temp fix, remove when https://github.com/aws/aws-amplify/issues/1075 is closed
+const _Interactions = Amplify._components.find(c => c === Interactions);
+_Interactions.addPluggable = pluggable => {
+  if (pluggable && pluggable.getCategory() === 'Interactions') {
+    if (!this._pluggables[pluggable.getProviderName()]) {
+      pluggable.configure(this._options.bots);
+      this._pluggables[pluggable.getProviderName()] = pluggable;
+    } else {
+      throw new Error('Bot ' + pluggable.getProviderName() + ' already plugged');
+    }
+  }
+};
 
 Amplify.configure({
   Auth: {
@@ -80,5 +95,8 @@ export default withAuthenticator(App, false, [
   <SignIn />,
   <ConfirmSignIn />,
   <SignUp />,
-  <ConfirmSignUp />
+  <ConfirmSignUp />,
+  <ForgotPassword />,
+  <VerifyContact />,
+  <RequireNewPassword />
 ]);
