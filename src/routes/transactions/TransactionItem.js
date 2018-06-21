@@ -11,6 +11,8 @@ const getItemColor = ({status, income}) => {
       return '#fa541c';
     case 'pending':
       return '#9b9b9b';
+    default:
+      return null;
   }
 };
 
