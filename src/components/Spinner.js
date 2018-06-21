@@ -1,20 +1,23 @@
-import React, {Component} from 'react';
+import React from 'react';
+import styled from 'styled-components';
 import {Spin} from 'antd';
-import cx from 'classnames';
 
-class Spinner extends Component {
-  static defaultProps = {
-    delay: 500
-  };
+const SpinWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: ${props => (props.inline ? 'relative' : 'absolute')};
+  padding: 25px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+`;
 
-  render() {
-    const {inline, ...props} = this.props;
-    return (
-      <div className={cx('spinner', {spinner_inline: inline})}>
-        <Spin {...props} />
-      </div>
-    );
-  }
-}
+const Spinner = ({delay = 500, inline, ...props}) => (
+  <SpinWrapper inline={inline}>
+    <Spin delay={delay} {...props} />
+  </SpinWrapper>
+);
 
 export default Spinner;

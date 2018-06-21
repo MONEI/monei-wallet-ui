@@ -2,35 +2,46 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {Menu, Icon, Layout} from 'antd';
 import {withRouter} from 'react-router-dom';
+import styled from 'styled-components';
 
-const {Sider} = Layout;
+const Sider = styled(Layout.Sider)`
+  background: #fff !important;
+  position: fixed !important;
+  top: 64px;
+  bottom: 0;
+  border-right: 1px solid #e8e8e8;
+`;
+
+const MainMenu = styled(Menu)`
+  border-right: 0;
+`;
+
+const Link = styled(NavLink)`
+  display: inline-block !important;
+`;
 
 const MainSidebar = ({location}) => (
   <Sider className="main-sidebar">
-    <Menu
-      mode="inline"
-      className="main-sidebar__menu"
-      activeKey={location.pathname}
-      selectedKeys={[location.pathname]}>
+    <MainMenu mode="inline" activeKey={location.pathname} selectedKeys={[location.pathname]}>
       <Menu.Item key="/">
         <Icon type="bars" />
-        <NavLink to="/" className="nav-text">
+        <Link to="/" className="nav-text">
           Transactions
-        </NavLink>
+        </Link>
       </Menu.Item>
       <Menu.Item key="/transfers">
         <Icon type="credit-card" />
-        <NavLink to="/transfers" className="nav-text">
+        <Link to="/transfers" className="nav-text">
           Transfers
-        </NavLink>
+        </Link>
       </Menu.Item>
       <Menu.Item key="/account">
         <Icon type="setting" />
-        <NavLink to="/account" className="nav-text">
+        <Link to="/account" className="nav-text">
           Account
-        </NavLink>
+        </Link>
       </Menu.Item>
-    </Menu>
+    </MainMenu>
   </Sider>
 );
 
