@@ -146,9 +146,9 @@ amazon-cognito-auth-js@^1.1.9:
   dependencies:
     js-cookie "^2.1.4"
 
-amazon-cognito-identity-js@^2.0.10:
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-2.0.10.tgz#2ef1c1893f4aa8c96a07fbff43606adbbb3674d2"
+amazon-cognito-identity-js@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-2.0.11.tgz#64367625e7fd21dbde417fac9d6d234ad291e9e4"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -525,40 +525,40 @@ autoprefixer@^6.3.1:
     postcss "^5.2.16"
     postcss-value-parser "^3.2.3"
 
-aws-amplify-react@^0.1.51:
-  version "0.1.51"
-  resolved "https://registry.yarnpkg.com/aws-amplify-react/-/aws-amplify-react-0.1.51.tgz#15691087e316ff8d63b71d69cb6350b9316df1f9"
+aws-amplify-react@^0.1.52:
+  version "0.1.52"
+  resolved "https://registry.yarnpkg.com/aws-amplify-react/-/aws-amplify-react-0.1.52.tgz#0080a10ad14447a4a33ebe3855917c98ed009148"
   dependencies:
-    aws-amplify "^0.4.5"
+    aws-amplify "^0.4.6"
     qrcode.react "^0.8.0"
     regenerator-runtime "^0.11.1"
 
-aws-amplify@^0.4.5:
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-0.4.5.tgz#8ce6b9eff8c72b1530206aa193cdadbb487c3c29"
+aws-amplify@^0.4.6:
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-0.4.6.tgz#aa6485876ca37c75b600883be52924be78b2840f"
   dependencies:
     "@types/paho-mqtt" "^1.0.3"
     "@types/zen-observable" "^0.5.3"
     amazon-cognito-auth-js "^1.1.9"
-    amazon-cognito-identity-js "^2.0.10"
+    amazon-cognito-identity-js "^2.0.11"
     aws-sdk "2.198.0"
     axios "^0.17.0"
-    graphql "0.13.0"
+    graphql "0.11.7"
     paho-mqtt "^1.0.4"
     url "^0.11.0"
     uuid "^3.2.1"
     zen-observable "^0.8.6"
 
-aws-appsync-react@^1.0.14:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/aws-appsync-react/-/aws-appsync-react-1.0.14.tgz#6c81c1c92057dbde4917dff6b898231989338727"
+aws-appsync-react@^1.0.16:
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/aws-appsync-react/-/aws-appsync-react-1.0.16.tgz#bc2df1e83087de44d0fc13e02b1ac8acfdddb542"
   dependencies:
-    aws-appsync "^1.0.23"
+    aws-appsync "^1.1.1"
     prop-types "^15.6.0"
 
-aws-appsync@^1.0.23:
-  version "1.0.23"
-  resolved "https://registry.yarnpkg.com/aws-appsync/-/aws-appsync-1.0.23.tgz#ff663e72159e68d5fb82a521f26222b6d3732107"
+aws-appsync@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/aws-appsync/-/aws-appsync-1.1.1.tgz#04e163a254363ff5b6d82f7a8e0e12f189a9f39e"
   dependencies:
     "@redux-offline/redux-offline" "^2.2.1"
     apollo-cache-inmemory "^1.0.0"
@@ -3414,13 +3414,7 @@ graphql-tag@^2.9.2:
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.9.2.tgz#2f60a5a981375f430bf1e6e95992427dc18af686"
 
-graphql@0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.0.tgz#d1b44a282279a9ce0a6ec1037329332f4c1079b6"
-  dependencies:
-    iterall "1.1.x"
-
-graphql@^0.11.7:
+graphql@0.11.7, graphql@^0.11.7:
   version "0.11.7"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.11.7.tgz#e5abaa9cb7b7cccb84e9f0836bf4370d268750c6"
   dependencies:
@@ -4257,10 +4251,6 @@ istanbul-reports@^1.3.0:
 iterall@1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.1.3.tgz#1cbbff96204056dde6656e2ed2e2226d0e6d72c9"
-
-iterall@1.1.x:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.1.4.tgz#0db40d38fdcf53ae14dc8ec674e62ab190d52cfc"
 
 jest-changed-files@^20.0.3:
   version "20.0.3"

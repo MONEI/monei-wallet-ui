@@ -24,19 +24,6 @@ message.config({
   maxCount: 3
 });
 
-// TODO: temp fix, remove when https://github.com/aws/aws-amplify/issues/1075 is closed
-const _Interactions = Amplify._components.find(c => c === Interactions);
-_Interactions.addPluggable = pluggable => {
-  if (pluggable && pluggable.getCategory() === 'Interactions') {
-    if (!this._pluggables[pluggable.getProviderName()]) {
-      pluggable.configure(this._options.bots);
-      this._pluggables[pluggable.getProviderName()] = pluggable;
-    } else {
-      throw new Error('Bot ' + pluggable.getProviderName() + ' already plugged');
-    }
-  }
-};
-
 Amplify.configure({
   Auth: {
     identityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID,
