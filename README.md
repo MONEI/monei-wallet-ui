@@ -1,4 +1,5 @@
 # MONEI Wallet UI
+[![Build Status](https://travis-ci.org/MONEI/monei-wallet-ui.svg?branch=master)](https://travis-ci.org/MONEI/monei-wallet-ui)
 
 User interface for [MONEI Wallet](https://github.com/MONEI/monei-wallet-serverless)
 
