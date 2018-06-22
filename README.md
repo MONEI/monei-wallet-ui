@@ -14,8 +14,8 @@ User interface for [MONEI Wallet](https://github.com/MONEI/monei-wallet-serverle
 ## Setup
 
 - change [.env.develop](.env.develop) to point to your back-end
-- run `yarn install`
-- run `yarn run start:develop`
+- `yarn install`
+- `yarn run start:develop`
 
 ## Deployment
 
