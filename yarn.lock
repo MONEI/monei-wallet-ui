@@ -146,9 +146,9 @@ amazon-cognito-auth-js@^1.1.9:
   dependencies:
     js-cookie "^2.1.4"
 
-amazon-cognito-identity-js@^2.0.11:
-  version "2.0.11"
-  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-2.0.11.tgz#64367625e7fd21dbde417fac9d6d234ad291e9e4"
+amazon-cognito-identity-js@^2.0.13:
+  version "2.0.13"
+  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-2.0.13.tgz#47afd2fb4d5de56bc1c9a842bc5727003a16802a"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -194,9 +194,9 @@ ansi-styles@^3.0.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-antd@^3.6.3:
-  version "3.6.3"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-3.6.3.tgz#29ad00da47b9162a7935672a6c8ba43f45713aff"
+antd@^3.6.5:
+  version "3.6.5"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-3.6.5.tgz#bed51a7e8c557a9c6331065087929f8ac4800cb2"
   dependencies:
     array-tree-filter "^2.0.0"
     babel-runtime "6.x"
@@ -525,22 +525,22 @@ autoprefixer@^6.3.1:
     postcss "^5.2.16"
     postcss-value-parser "^3.2.3"
 
-aws-amplify-react@^0.1.52:
-  version "0.1.52"
-  resolved "https://registry.yarnpkg.com/aws-amplify-react/-/aws-amplify-react-0.1.52.tgz#0080a10ad14447a4a33ebe3855917c98ed009148"
+aws-amplify-react@0.1.54:
+  version "0.1.54"
+  resolved "https://registry.yarnpkg.com/aws-amplify-react/-/aws-amplify-react-0.1.54.tgz#1ac5fefcc9441fc2f7eaea237f305c854611b516"
   dependencies:
-    aws-amplify "^0.4.6"
+    aws-amplify "^0.4.8"
     qrcode.react "^0.8.0"
     regenerator-runtime "^0.11.1"
 
-aws-amplify@^0.4.6:
-  version "0.4.6"
-  resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-0.4.6.tgz#aa6485876ca37c75b600883be52924be78b2840f"
+aws-amplify@0.4.8, aws-amplify@^0.4.8:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-0.4.8.tgz#82b9028d80fa83597c25eaaeadbfcc3761d4d967"
   dependencies:
     "@types/paho-mqtt" "^1.0.3"
     "@types/zen-observable" "^0.5.3"
     amazon-cognito-auth-js "^1.1.9"
-    amazon-cognito-identity-js "^2.0.11"
+    amazon-cognito-identity-js "^2.0.13"
     aws-sdk "2.198.0"
     axios "^0.17.0"
     graphql "0.11.7"
@@ -550,15 +550,15 @@ aws-amplify@^0.4.6:
     zen-observable "^0.8.6"
 
 aws-appsync-react@^1.0.16:
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/aws-appsync-react/-/aws-appsync-react-1.0.16.tgz#bc2df1e83087de44d0fc13e02b1ac8acfdddb542"
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/aws-appsync-react/-/aws-appsync-react-1.0.19.tgz#2a5b2596b5b4d736322acdabd0b0742843507db8"
   dependencies:
-    aws-appsync "^1.1.1"
+    aws-appsync "^1.1.4"
     prop-types "^15.6.0"
 
-aws-appsync@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/aws-appsync/-/aws-appsync-1.1.1.tgz#04e163a254363ff5b6d82f7a8e0e12f189a9f39e"
+aws-appsync@1.1.4, aws-appsync@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/aws-appsync/-/aws-appsync-1.1.4.tgz#9e1cd1a16c35e343491b8674a3206adf64a09bd7"
   dependencies:
     "@redux-offline/redux-offline" "^2.2.1"
     apollo-cache-inmemory "^1.0.0"
@@ -4809,7 +4809,7 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-lodash@4.17.10, "lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.15.0, lodash@^4.16.5, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1, lodash@^4.3.0:
+"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.15.0, lodash@^4.16.5, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1, lodash@^4.3.0:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
@@ -6467,17 +6467,17 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-apollo@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.1.6.tgz#13be92689009eda9023948c78532f4102cbc3d57"
+react-apollo@^2.1.8:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.1.8.tgz#ebac0d9bee0f0906df3ce29207f94df337009887"
   dependencies:
     fbjs "^0.8.16"
     hoist-non-react-statics "^2.5.0"
     invariant "^2.2.2"
-    lodash "4.17.10"
+    lodash "^4.17.10"
     prop-types "^15.6.0"
 
-react-app-rewire-less@^2.1.1:
+react-app-rewire-less@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-app-rewire-less/-/react-app-rewire-less-2.1.1.tgz#8c59943f487d037c73d9b55fcf35db13401f3eb0"
   dependencies:
@@ -6527,9 +6527,9 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
-react-infinite-scroller@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/react-infinite-scroller/-/react-infinite-scroller-1.1.4.tgz#176b1a9ca8fdff53eeb34f648c7b0d446459d61b"
+react-infinite-scroller@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-infinite-scroller/-/react-infinite-scroller-1.2.0.tgz#ea89906c5bc918dce486880b59e88847518aa538"
   dependencies:
     prop-types "^15.5.8"
 
@@ -7975,7 +7975,11 @@ uuid@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
 
-uuid@^3.0.0, uuid@^3.1.0, uuid@^3.2.1:
+uuid@^3.0.0:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
+
+uuid@^3.1.0, uuid@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 

@@ -35,6 +35,12 @@ const MainSidebar = ({location}) => (
           Transfers
         </Link>
       </Menu.Item>
+      <Menu.Item key="/buy">
+        <Icon type="shopping-cart" />
+        <Link to="/buy" className="nav-text">
+          Buy coins
+        </Link>
+      </Menu.Item>
       <Menu.Item key="/account">
         <Icon type="setting" />
         <Link to="/account" className="nav-text">

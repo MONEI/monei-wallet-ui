@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {PubSub, API} from 'aws-amplify/lib/index';
+import {PubSub, API} from 'aws-amplify';
 import {createLocalTransaction, updateLocalTransaction} from '../api/utils';
 import {message} from 'antd/lib';
 

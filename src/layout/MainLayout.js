@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import Transactions from 'routes/transactions';
 import Transfers from 'routes/transfers';
 import Account from 'routes/account';
+import Buy from 'routes/buy';
 
 const Container = styled(Layout)`
   margin-left: 200px;
@@ -47,6 +48,7 @@ const MainLayout = ({logout, location, data: {loading, error, user}}) => {
         <Content>
           <Route exact path="/" component={Transactions} />
           <Route path="/transfers" component={Transfers} />
+          <Route path="/buy" component={Buy} />
           <Route path="/account" component={props => <Account {...props} user={user} />} />
         </Content>
         <Footer>

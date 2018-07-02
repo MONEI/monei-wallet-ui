@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Amplify, {Auth, Interactions} from 'aws-amplify';
+import Amplify, {Auth} from 'aws-amplify';
 import {withAuthenticator} from 'aws-amplify-react';
 import AWSAppSyncClient from 'aws-appsync';
 import {Rehydrated} from 'aws-appsync-react';
