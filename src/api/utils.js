@@ -9,12 +9,12 @@ import {TransactionsQuery, UserQuery} from './queries';
 export const createLocalTransaction = (client, transaction) => {
   try {
     const transactionsData = client.readQuery({query: TransactionsQuery, variables: {from: 0}});
+    const newTrx = {__typename: 'Transaction', toInfo: '', ...transaction};
     client.writeQuery({
       query: TransactionsQuery,
       variables: {from: 0},
       data: produce(transactionsData, draft => {
-        draft.transactions.items = draft.transactions.items || [];
-        draft.transactions.items.unshift(transaction);
+        draft.transactions.items = [newTrx, ...draft.transactions.items];
       })
     });
   } catch (_) {}
