@@ -1,11 +1,12 @@
+import {Card} from 'antd';
 import React from 'react';
-import {Card, Button} from 'antd';
+import BuyCoinsForm from './BuyCoinsForm';
 
 const Buy = ({prepareCheckout}) => {
   return (
     <div>
       <Card title="Buy coins" style={{maxWidth: 550}}>
-        <Button onClick={() => prepareCheckout({amount: 1000})}>Buy 10 EURM</Button>
+        <BuyCoinsForm onFormSubmit={prepareCheckout} />
       </Card>
     </div>
   );

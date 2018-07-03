@@ -30,13 +30,13 @@ const MainSidebar = ({location}) => (
         </Link>
       </Menu.Item>
       <Menu.Item key="/transfers">
-        <Icon type="credit-card" />
+        <Icon type="export" />
         <Link to="/transfers" className="nav-text">
           Transfers
         </Link>
       </Menu.Item>
       <Menu.Item key="/buy">
-        <Icon type="shopping-cart" />
+        <Icon type="credit-card" />
         <Link to="/buy" className="nav-text">
           Buy coins
         </Link>
