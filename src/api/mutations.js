@@ -29,3 +29,11 @@ export const NewTransactionMutation = gql`
     }
   }
 `;
+
+export const PrepareCheckoutMutation = gql`
+  mutation PrepareCheckoutMutation($amount: Int!) {
+    prepareCheckout(amount: $amount) {
+      checkoutUrl
+    }
+  }
+`;

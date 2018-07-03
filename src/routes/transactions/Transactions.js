@@ -27,6 +27,7 @@ const EmptyList = styled.div`
 
 const Transactions = ({loading, error, transactions, loadMore}) => {
   if (loading) return <Spinner size="large" />;
+
   if (transactions.items.length === 0) return <EmptyList />;
 
   const groupedTransactions = groupBy(transactions.items, trx =>
