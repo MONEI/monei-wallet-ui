@@ -21,10 +21,11 @@ class BuyCoinsForm extends Component {
       <Form onSubmit={this.handleSubmit} layout="horizontal" className="new-transaction-form">
         <Form.Item labelCol={{span: 6}} wrapperCol={{span: 18}} label="Buy">
           <ButtonGroup>
-            <Button onClick={() => this.props.onFormSubmit({amount: 1000})}>10 EURM</Button>
-            <Button onClick={() => this.props.onFormSubmit({amount: 5000})}>50 EURM</Button>
-            <Button onClick={() => this.props.onFormSubmit({amount: 10000})}>100 EURM</Button>
-            <Button onClick={() => this.props.onFormSubmit({amount: 50000})}>500 EURM</Button>
+            {[10, 50, 100, 500].map((amount, i) => (
+              <Button onClick={() => this.props.onFormSubmit({amount: amount * 100})}>
+                {amount} EURM
+              </Button>
+            ))}
           </ButtonGroup>
         </Form.Item>
         <Form.Item labelCol={{span: 6}} wrapperCol={{span: 18}} label="Amount">
