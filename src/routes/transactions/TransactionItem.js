@@ -80,9 +80,11 @@ const TransactionItem = ({item}) => {
       </Desc>
       <Spacer />
       <Actions>
-        <a href={`https://ropsten.etherscan.io/tx/${item.id}`} target="_blank">
-          view receipt
-        </a>
+        {item.id.startsWith('0x') && (
+          <a href={`https://ropsten.etherscan.io/tx/${item.id}`} target="_blank">
+            view receipt
+          </a>
+        )}
       </Actions>
       <Value>
         {item.income ? '+' : '-'} {(item.amount / 100).toFixed(2)}
