@@ -17,6 +17,7 @@ import ConfirmSignUp from './components/Auth/ConfirmSignUp';
 import ForgotPassword from './components/Auth/ForgotPassword';
 import RequireNewPassword from './components/Auth/RequireNewPassword';
 import VerifyContact from './components/Auth/VerifyContact';
+import VerifyCode from './components/Auth/VerifyCode';
 
 message.config({
   top: 11,
@@ -68,6 +69,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <ApolloProvider client={client}>
         <Rehydrated>
@@ -87,5 +89,6 @@ export default withAuthenticator(App, false, [
   <ConfirmSignUp />,
   <ForgotPassword />,
   <VerifyContact />,
-  <RequireNewPassword />
+  <RequireNewPassword />,
+  <VerifyCode />
 ]);
