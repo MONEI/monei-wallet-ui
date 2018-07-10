@@ -17,21 +17,16 @@ class CustomSignIn extends SignIn {
     const {username, password} = this.inputs;
     Auth.signIn(username, password)
       .then(user => {
-        console.log(user);
         if (user.challengeName === 'CUSTOM_CHALLENGE') {
-          console.log('confirm user with ' + user.challengeName);
           this.changeState('verifyCode', user);
         } else if (
           user.challengeName === 'SMS_MFA' ||
           user.challengeName === 'SOFTWARE_TOKEN_MFA'
         ) {
-          console.log('confirm user with ' + user.challengeName);
           this.changeState('confirmSignIn', user);
         } else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-          console.log('require new password', user.challengeParam);
           this.changeState('requireNewPassword', user);
         } else if (user.challengeName === 'MFA_SETUP') {
-          console.log('TOTP setup', user.challengeParam);
           this.changeState('TOTPSetup', user);
         } else {
           this.checkContact(user);

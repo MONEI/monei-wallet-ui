@@ -1,5 +1,5 @@
 import React from 'react';
-import {I18n} from 'aws-amplify';
+import {I18n, Auth} from 'aws-amplify';
 import {
   FormSection,
   SectionHeader,
@@ -12,6 +12,14 @@ import {
 } from 'aws-amplify-react';
 
 class CustomSignUp extends SignUp {
+  signUp() {
+    const {username, password} = this.inputs;
+    Auth.signUp(username, password)
+      .then(() => Auth.signIn(username))
+      .then(user => this.changeState('verifyCode', user))
+      .catch(err => this.error(err));
+  }
+
   showComponent(theme) {
     const {hide} = this.props;
     if (hide && hide.includes(SignUp)) {
@@ -43,16 +51,9 @@ class CustomSignUp extends SignUp {
           </ButtonRow>
         </SectionBody>
         <SectionFooter theme={theme}>
-          <div style={theme.col6}>
-            <Link theme={theme} onClick={() => this.changeState('confirmSignUp')}>
-              {I18n.get('Confirm a Code')}
-            </Link>
-          </div>
-          <div style={Object.assign({textAlign: 'right'}, theme.col6)}>
-            <Link theme={theme} onClick={() => this.changeState('signIn')}>
-              {I18n.get('Sign In')}
-            </Link>
-          </div>
+          <Link theme={theme} onClick={() => this.changeState('signIn')}>
+            {I18n.get('Sign In')}
+          </Link>
         </SectionFooter>
       </FormSection>
     );
