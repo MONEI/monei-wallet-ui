@@ -22,7 +22,7 @@ class BuyCoinsForm extends Component {
         <Form.Item labelCol={{span: 6}} wrapperCol={{span: 18}} label="Buy">
           <ButtonGroup>
             {[10, 50, 100, 500].map((amount, i) => (
-              <Button onClick={() => this.props.onFormSubmit({amount: amount * 100})}>
+              <Button key={i} onClick={() => this.props.onFormSubmit({amount: amount * 100})}>
                 {amount} EURM
               </Button>
             ))}

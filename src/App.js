@@ -9,6 +9,7 @@ import MainLayout from './layout';
 import {AWSIoTProvider} from 'aws-amplify/lib/PubSub/Providers';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {message} from 'antd';
+import aws_exports from './aws-exports';
 
 import SignUp from './components/Auth/SignUp';
 import SignIn from './components/Auth/SignIn';
@@ -26,6 +27,7 @@ message.config({
 });
 
 Amplify.configure({
+  ...aws_exports,
   Auth: {
     identityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID,
     region: process.env.REACT_APP_REGION,
@@ -61,6 +63,8 @@ const client = new AWSAppSyncClient({
   disableOffline: true
 });
 
+//Amplify.Logger.LOG_LEVEL = 'DEBUG';
+
 class App extends Component {
   logout = async () => {
     await Auth.signOut();
@@ -69,7 +73,6 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <ApolloProvider client={client}>
         <Rehydrated>

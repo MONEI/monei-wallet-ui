@@ -1,5 +1,6 @@
 import React from 'react';
-import {I18n, Auth} from 'aws-amplify';
+import {I18n} from 'aws-amplify';
+import * as Auth from 'lib/Auth';
 import {
   FormSection,
   SectionHeader,
@@ -13,9 +14,8 @@ import {
 
 class CustomSignUp extends SignUp {
   signUp() {
-    const {username, password} = this.inputs;
-    Auth.signUp(username, password)
-      .then(() => Auth.signIn(username))
+    const {username} = this.inputs;
+    Auth.signUp(username)
       .then(user => this.changeState('verifyCode', user))
       .catch(err => this.error(err));
   }
@@ -36,14 +36,6 @@ class CustomSignUp extends SignUp {
             theme={theme}
             key="username"
             name="username"
-            onChange={this.handleInputChange}
-          />
-          <InputRow
-            placeholder={I18n.get('Password')}
-            theme={theme}
-            key="password"
-            type="password"
-            name="password"
             onChange={this.handleInputChange}
           />
           <ButtonRow onClick={this.signUp} theme={theme}>
