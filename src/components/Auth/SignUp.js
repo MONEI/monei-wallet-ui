@@ -54,7 +54,6 @@ class CustomSignUp extends SignUp {
             size="large"
             type="primary"
             htmlType="submit"
-            onClick={this.signUp}
             style={{width: '100%'}}>
             Register
           </Button>

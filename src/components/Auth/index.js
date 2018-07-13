@@ -49,9 +49,8 @@ export const withAuthenticator = Component =>
     };
 
     render() {
-      const {auth, authData, error} = this.state;
+      const {auth, authData} = this.state;
       const authProps = {
-        error,
         authState: auth,
         authData: authData,
         onStateChange: this.handleStateChange,

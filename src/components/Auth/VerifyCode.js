@@ -9,40 +9,46 @@ class VerifyCode extends ConfirmSignIn {
     this._validAuthStates = ['verifyCode'];
   }
 
-  confirm() {
-    const user = this.props.authData;
-    const {code} = this.inputs;
-    this.setState({loading: true});
-    Auth.sendCustomChallengeAnswer(user, code)
-      .then(user => {
-        this.setState({loading: false});
-        this.changeState('signedIn', user);
-      })
-      .catch(err => {
-        this.setState({loading: false});
-        this.error(err);
-      });
-  }
+  handleSubmit = e => {
+    e.preventDefault();
+    const {form, authData} = this.props;
+    form.validateFields((error, {code}) => {
+      if (error) return;
+      this.setState({loading: true});
+      Auth.sendCustomChallengeAnswer(authData, code)
+        .then(user => {
+          this.setState({loading: false});
+          this.changeState('signedIn', user);
+        })
+        .catch(err => {
+          this.setState({loading: false});
+          form.setFields({code: {value: code, errors: [err]}});
+          this.error(err);
+        });
+    });
+  };
 
   signIn = e => {
     e.preventDefault();
     this.changeState('signIn');
   };
 
-  showComponent(theme) {
+  showComponent() {
+    const {getFieldDecorator} = this.props.form;
     return (
-      <Form>
+      <Form onSubmit={this.handleSubmit}>
         <Form.Item>
-          <Input
-            size="large"
-            autoFocus
-            prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}} />}
-            placeholder="code"
-            type="tel"
-            key="code"
-            name="code"
-            onChange={this.handleInputChange}
-          />
+          {getFieldDecorator('code', {
+            rules: [{required: true, message: 'Please input SMS code'}]
+          })(
+            <Input
+              size="large"
+              autoFocus
+              prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}} />}
+              placeholder="code"
+              type="tel"
+            />
+          )}
         </Form.Item>
         <Form.Item>
           <Button
@@ -50,7 +56,6 @@ class VerifyCode extends ConfirmSignIn {
             size="large"
             type="primary"
             htmlType="submit"
-            onClick={this.confirm}
             style={{width: '100%'}}>
             Confirm SMS Code
           </Button>
@@ -63,4 +68,4 @@ class VerifyCode extends ConfirmSignIn {
   }
 }
 
-export default VerifyCode;
+export default Form.create()(VerifyCode);
