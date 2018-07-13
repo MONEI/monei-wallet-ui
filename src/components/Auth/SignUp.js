@@ -1,53 +1,57 @@
 import React from 'react';
-import {I18n} from 'aws-amplify';
-import * as Auth from 'lib/Auth';
-import {
-  FormSection,
-  SectionHeader,
-  SectionBody,
-  SectionFooter,
-  InputRow,
-  ButtonRow,
-  SignUp,
-  Link
-} from 'aws-amplify-react';
+import {Form, Icon, Input, Button} from 'antd';
+import {Auth} from 'aws-amplify';
+import {SignUp} from 'aws-amplify-react';
 
 class CustomSignUp extends SignUp {
   signUp() {
     const {username} = this.inputs;
+    this.setState({loading: true});
     Auth.signUp(username)
-      .then(user => this.changeState('verifyCode', user))
-      .catch(err => this.error(err));
+      .then(user => {
+        this.setState({loading: false});
+        this.changeState('verifyCode', user);
+      })
+      .catch(err => {
+        this.setState({loading: false});
+        this.error(err);
+      });
   }
 
-  showComponent(theme) {
-    const {hide} = this.props;
-    if (hide && hide.includes(SignUp)) {
-      return null;
-    }
+  signIn = e => {
+    e.preventDefault();
+    this.changeState('signIn');
+  };
 
+  showComponent() {
     return (
-      <FormSection theme={theme}>
-        <SectionHeader theme={theme}>{I18n.get('Sign Up Account')}</SectionHeader>
-        <SectionBody theme={theme}>
-          <InputRow
-            autoFocus
-            placeholder={I18n.get('Phone number')}
-            theme={theme}
+      <Form>
+        <Form.Item>
+          <Input
+            size="large"
+            prefix={<Icon type="mobile" style={{color: 'rgba(0,0,0,.25)'}} />}
+            placeholder="phone number"
+            type="tel"
             key="username"
             name="username"
             onChange={this.handleInputChange}
           />
-          <ButtonRow onClick={this.signUp} theme={theme}>
-            {I18n.get('Sign Up')}
-          </ButtonRow>
-        </SectionBody>
-        <SectionFooter theme={theme}>
-          <Link theme={theme} onClick={() => this.changeState('signIn')}>
-            {I18n.get('Sign In')}
-          </Link>
-        </SectionFooter>
-      </FormSection>
+        </Form.Item>
+        <Form.Item>
+          <Button
+            loading={this.state.loading}
+            size="large"
+            type="primary"
+            htmlType="submit"
+            onClick={this.signUp}
+            style={{width: '100%'}}>
+            Register
+          </Button>
+        </Form.Item>
+        <div style={{fontSize: 16}}>
+          Or <a onClick={this.signIn}>log in</a>
+        </div>
+      </Form>
     );
   }
 }

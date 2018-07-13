@@ -1,15 +1,7 @@
 import React from 'react';
-import {I18n, Auth} from 'aws-amplify';
-import {
-  FormSection,
-  SectionHeader,
-  SectionBody,
-  SectionFooter,
-  InputRow,
-  ButtonRow,
-  ConfirmSignIn,
-  Link
-} from 'aws-amplify-react';
+import {Form, Icon, Input, Button} from 'antd';
+import {Auth} from 'aws-amplify';
+import {ConfirmSignIn} from 'aws-amplify-react';
 
 class VerifyCode extends ConfirmSignIn {
   constructor(props) {
@@ -20,41 +12,52 @@ class VerifyCode extends ConfirmSignIn {
   confirm() {
     const user = this.props.authData;
     const {code} = this.inputs;
+    this.setState({loading: true});
     Auth.sendCustomChallengeAnswer(user, code)
       .then(user => {
+        this.setState({loading: false});
         this.changeState('signedIn', user);
       })
-      .catch(err => this.error(err));
+      .catch(err => {
+        this.setState({loading: false});
+        this.error(err);
+      });
   }
 
-  showComponent(theme) {
-    const {hide} = this.props;
-    if (hide && hide.includes(ConfirmSignIn)) {
-      return null;
-    }
+  signIn = e => {
+    e.preventDefault();
+    this.changeState('signIn');
+  };
 
+  showComponent(theme) {
     return (
-      <FormSection theme={theme}>
-        <SectionHeader theme={theme}>{I18n.get('Confirm SMS Code')}</SectionHeader>
-        <SectionBody theme={theme}>
-          <InputRow
-            autoFocus
-            placeholder={I18n.get('Code')}
-            theme={theme}
+      <Form>
+        <Form.Item>
+          <Input
+            size="large"
+            prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}} />}
+            placeholder="code"
+            type="tel"
             key="code"
             name="code"
             onChange={this.handleInputChange}
           />
-          <ButtonRow theme={theme} onClick={this.confirm}>
-            {I18n.get('Confirm')}
-          </ButtonRow>
-        </SectionBody>
-        <SectionFooter theme={theme}>
-          <Link theme={theme} onClick={() => this.changeState('signIn')}>
-            {I18n.get('Back to Sign In')}
-          </Link>
-        </SectionFooter>
-      </FormSection>
+        </Form.Item>
+        <Form.Item>
+          <Button
+            loading={this.state.loading}
+            size="large"
+            type="primary"
+            htmlType="submit"
+            onClick={this.confirm}
+            style={{width: '100%'}}>
+            Confirm SMS Code
+          </Button>
+        </Form.Item>
+        <div style={{fontSize: 16}}>
+          <a onClick={this.signIn}>Back to login</a>
+        </div>
+      </Form>
     );
   }
 }

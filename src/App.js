@@ -9,7 +9,7 @@ import {AWSIoTProvider} from 'aws-amplify/lib/PubSub/Providers';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {message} from 'antd';
 import aws_exports from './aws-exports';
-import {withAuthenticator} from './components/Auth/Authenticator';
+import {withAuthenticator} from './components/Auth';
 
 message.config({
   top: 11,

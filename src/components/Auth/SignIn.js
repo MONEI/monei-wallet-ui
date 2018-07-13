@@ -1,26 +1,19 @@
 import React from 'react';
 import {Form, Icon, Input, Button} from 'antd';
-import {I18n, Auth} from 'aws-amplify';
-import {
-  FormSection,
-  SectionHeader,
-  SectionBody,
-  SectionFooter,
-  InputRow,
-  ButtonRow,
-  SignIn,
-  FederatedButtons,
-  Link
-} from 'aws-amplify-react';
+import {Auth} from 'aws-amplify';
+import {SignIn} from 'aws-amplify-react';
 
 class CustomSignIn extends SignIn {
   signIn = () => {
     const {username} = this.inputs;
+    this.setState({loading: true});
     Auth.signIn(username)
       .then(user => {
+        this.setState({loading: false});
         this.changeState('verifyCode', user);
       })
       .catch(err => {
+        this.setState({loading: false});
         if (err.code === 'UserNotConfirmedException') {
           console.log('the user is not confirmed');
           this.changeState('confirmSignUp');
@@ -43,6 +36,7 @@ class CustomSignIn extends SignIn {
             size="large"
             prefix={<Icon type="mobile" style={{color: 'rgba(0,0,0,.25)'}} />}
             placeholder="phone number"
+            type="tel"
             key="username"
             name="username"
             onChange={this.handleInputChange}
@@ -50,6 +44,7 @@ class CustomSignIn extends SignIn {
         </Form.Item>
         <Form.Item>
           <Button
+            loading={this.state.loading}
             size="large"
             type="primary"
             htmlType="submit"
