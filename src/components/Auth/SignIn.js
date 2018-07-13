@@ -1,83 +1,71 @@
+import {Button, Form, Icon, Input} from 'antd';
+import {Auth} from 'aws-amplify';
+import {SignIn} from 'aws-amplify-react';
 import React from 'react';
-import {I18n, Auth} from 'aws-amplify';
-import {
-  FormSection,
-  SectionHeader,
-  SectionBody,
-  SectionFooter,
-  InputRow,
-  ButtonRow,
-  SignIn,
-  FederatedButtons,
-  Link
-} from 'aws-amplify-react';
 
 class CustomSignIn extends SignIn {
-  signIn() {
-    const {username, password} = this.inputs;
-    Auth.signIn(username, password)
-      .then(user => {
-        if (user.challengeName === 'CUSTOM_CHALLENGE') {
+  handleSubmit = e => {
+    e.preventDefault();
+    const {form} = this.props;
+    form.validateFields((error, {username}) => {
+      if (error) return;
+      this.setState({loading: true});
+      Auth.signIn(username)
+        .then(user => {
+          this.setState({loading: false});
           this.changeState('verifyCode', user);
-        } else if (
-          user.challengeName === 'SMS_MFA' ||
-          user.challengeName === 'SOFTWARE_TOKEN_MFA'
-        ) {
-          this.changeState('confirmSignIn', user);
-        } else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-          this.changeState('requireNewPassword', user);
-        } else if (user.challengeName === 'MFA_SETUP') {
-          this.changeState('TOTPSetup', user);
-        } else {
-          this.checkContact(user);
-        }
-      })
-      .catch(err => {
-        if (err.code === 'UserNotConfirmedException') {
-          console.log('the user is not confirmed');
-          this.changeState('confirmSignUp');
-        } else {
-          this.error(err);
-        }
-      });
-  }
+        })
+        .catch(err => {
+          this.setState({loading: false});
+          form.setFields({username: {value: username, errors: [err]}});
+          if (err.code === 'UserNotConfirmedException') {
+            console.log('the user is not confirmed');
+            this.changeState('confirmSignUp');
+          } else {
+            this.error(err);
+          }
+        });
+    });
+  };
 
-  showComponent(theme) {
-    const {authState, hide, federated, onStateChange} = this.props;
-    if (hide && hide.includes(SignIn)) {
-      return null;
-    }
+  signUp = e => {
+    e.preventDefault();
+    this.changeState('signUp');
+  };
 
+  showComponent() {
+    const {getFieldDecorator} = this.props.form;
     return (
-      <FormSection theme={theme}>
-        <SectionHeader theme={theme}>{I18n.get('Sign In Account')}</SectionHeader>
-        <SectionBody theme={theme}>
-          <InputRow
-            autoFocus
-            placeholder={I18n.get('Phone number')}
-            theme={theme}
-            key="username"
-            name="username"
-            onChange={this.handleInputChange}
-          />
-          <ButtonRow theme={theme} onClick={this.signIn}>
-            {I18n.get('Sign In')}
-          </ButtonRow>
-          <FederatedButtons
-            federated={federated}
-            theme={theme}
-            authState={authState}
-            onStateChange={onStateChange}
-          />
-        </SectionBody>
-        <SectionFooter theme={theme}>
-          <Link theme={theme} onClick={() => this.changeState('signUp')}>
-            {I18n.get('Sign Up')}
-          </Link>
-        </SectionFooter>
-      </FormSection>
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Item>
+          {getFieldDecorator('username', {
+            rules: [{required: true, message: 'Please input your phone!'}]
+          })(
+            <Input
+              size="large"
+              autoFocus
+              prefix={<Icon type="mobile" style={{color: 'rgba(0,0,0,.25)'}} />}
+              placeholder="phone number"
+              type="tel"
+            />
+          )}
+        </Form.Item>
+        <Form.Item>
+          <Button
+            loading={this.state.loading}
+            size="large"
+            type="primary"
+            htmlType="submit"
+            style={{width: '100%'}}>
+            Log in
+          </Button>
+        </Form.Item>
+        <div style={{fontSize: 16, textAlign: 'center'}}>
+          Or <a onClick={this.signUp}>register now!</a>
+        </div>
+      </Form>
     );
   }
 }
 
-export default CustomSignIn;
+export default Form.create()(CustomSignIn);

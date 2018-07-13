@@ -1,55 +1,69 @@
 import React from 'react';
-import {I18n} from 'aws-amplify';
+import {Form, Icon, Input, Button} from 'antd';
 import * as Auth from 'lib/Auth';
-import {
-  FormSection,
-  SectionHeader,
-  SectionBody,
-  SectionFooter,
-  InputRow,
-  ButtonRow,
-  SignUp,
-  Link
-} from 'aws-amplify-react';
+import {SignUp} from 'aws-amplify-react';
 
 class CustomSignUp extends SignUp {
-  signUp() {
-    const {username} = this.inputs;
-    Auth.signUp(username)
-      .then(user => this.changeState('verifyCode', user))
-      .catch(err => this.error(err));
-  }
+  state = {};
 
-  showComponent(theme) {
-    const {hide} = this.props;
-    if (hide && hide.includes(SignUp)) {
-      return null;
-    }
+  handleSubmit = e => {
+    e.preventDefault();
+    const {form} = this.props;
+    form.validateFields((error, {username}) => {
+      if (error) return;
+      this.setState({loading: true});
+      Auth.signUp(username)
+        .then(user => {
+          this.setState({loading: false});
+          this.changeState('verifyCode', user);
+        })
+        .catch(err => {
+          console.log(err);
+          this.setState({loading: false});
+          form.setFields({username: {value: username, errors: [err]}});
+          this.error(err);
+        });
+    });
+  };
 
+  signIn = e => {
+    e.preventDefault();
+    this.changeState('signIn');
+  };
+
+  showComponent() {
+    const {getFieldDecorator} = this.props.form;
     return (
-      <FormSection theme={theme}>
-        <SectionHeader theme={theme}>{I18n.get('Sign Up Account')}</SectionHeader>
-        <SectionBody theme={theme}>
-          <InputRow
-            autoFocus
-            placeholder={I18n.get('Phone number')}
-            theme={theme}
-            key="username"
-            name="username"
-            onChange={this.handleInputChange}
-          />
-          <ButtonRow onClick={this.signUp} theme={theme}>
-            {I18n.get('Sign Up')}
-          </ButtonRow>
-        </SectionBody>
-        <SectionFooter theme={theme}>
-          <Link theme={theme} onClick={() => this.changeState('signIn')}>
-            {I18n.get('Sign In')}
-          </Link>
-        </SectionFooter>
-      </FormSection>
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Item>
+          {getFieldDecorator('username', {
+            rules: [{required: true, message: 'Please input your phone!'}]
+          })(
+            <Input
+              size="large"
+              autoFocus
+              prefix={<Icon type="mobile" style={{color: 'rgba(0,0,0,.25)'}} />}
+              placeholder="phone number"
+              type="tel"
+            />
+          )}
+        </Form.Item>
+        <Form.Item>
+          <Button
+            loading={this.state.loading}
+            size="large"
+            type="primary"
+            htmlType="submit"
+            style={{width: '100%'}}>
+            Register
+          </Button>
+        </Form.Item>
+        <div style={{fontSize: 16, textAlign: 'center'}}>
+          Or <a onClick={this.signIn}>log in</a>
+        </div>
+      </Form>
     );
   }
 }
 
-export default CustomSignUp;
+export default Form.create()(CustomSignUp);
