@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Authenticator, MapEntries} from 'aws-amplify-react';
+import {Authenticator} from 'aws-amplify-react';
 import Spinner from '../Spinner';
 import {Auth} from 'aws-amplify';
 import SignUp from './SignUp';
@@ -12,11 +12,11 @@ const Container = styled.div`
   width: 368px;
   margin: 0 auto;
   padding-bottom: 50px;
-  text-align: center;
 `;
 
 const Title = styled.h1`
   font-size: 33px;
+  text-align: center;
 `;
 
 export const withAuthenticator = Component =>
@@ -26,7 +26,7 @@ export const withAuthenticator = Component =>
     handleStateChange = (state, data) => {
       if (state === this.state.auth) return;
       if (state === 'signedOut') state = 'signIn';
-      this.setState({auth: state, authData: data});
+      this.setState({auth: state, authData: data, error: null});
     };
 
     componentDidMount() {
@@ -42,17 +42,16 @@ export const withAuthenticator = Component =>
         .catch(err => console.log(err));
     }
 
-    handleAuthEvent(state, event) {
+    handleAuthEvent = (state, event) => {
       if (event.type === 'error') {
-        const map = MapEntries;
-        const message = typeof map === 'string' ? map : map(event.data);
-        this.setState({error: message});
+        this.setState({error: event.data});
       }
-    }
+    };
 
     render() {
-      const {auth, authData} = this.state;
+      const {auth, authData, error} = this.state;
       const authProps = {
+        error,
         authState: auth,
         authData: authData,
         onStateChange: this.handleStateChange,

@@ -1,12 +1,5 @@
 import {Auth} from 'aws-amplify';
 
-const handleErrors = response => {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
-};
-
 export const signUp = username => {
   return fetch(process.env.REACT_APP_API_ENDPOINT + '/signup', {
     headers: {
@@ -16,6 +9,13 @@ export const signUp = username => {
     method: 'POST',
     body: JSON.stringify({username})
   })
-    .then(handleErrors)
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(err => {
+          throw err;
+        });
+      }
+      return response;
+    })
     .then(() => Auth.signIn(username));
 };

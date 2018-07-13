@@ -35,6 +35,7 @@ class VerifyCode extends ConfirmSignIn {
         <Form.Item>
           <Input
             size="large"
+            autoFocus
             prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}} />}
             placeholder="code"
             type="tel"
@@ -54,7 +55,7 @@ class VerifyCode extends ConfirmSignIn {
             Confirm SMS Code
           </Button>
         </Form.Item>
-        <div style={{fontSize: 16}}>
+        <div style={{fontSize: 16, textAlign: 'center'}}>
           <a onClick={this.signIn}>Back to login</a>
         </div>
       </Form>
