@@ -1,4 +1,5 @@
 import React from 'react';
+import {Form, Icon, Input, Button} from 'antd';
 import {I18n, Auth} from 'aws-amplify';
 import {
   FormSection,
@@ -13,24 +14,11 @@ import {
 } from 'aws-amplify-react';
 
 class CustomSignIn extends SignIn {
-  signIn() {
-    const {username, password} = this.inputs;
-    Auth.signIn(username, password)
+  signIn = () => {
+    const {username} = this.inputs;
+    Auth.signIn(username)
       .then(user => {
-        if (user.challengeName === 'CUSTOM_CHALLENGE') {
-          this.changeState('verifyCode', user);
-        } else if (
-          user.challengeName === 'SMS_MFA' ||
-          user.challengeName === 'SOFTWARE_TOKEN_MFA'
-        ) {
-          this.changeState('confirmSignIn', user);
-        } else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-          this.changeState('requireNewPassword', user);
-        } else if (user.challengeName === 'MFA_SETUP') {
-          this.changeState('TOTPSetup', user);
-        } else {
-          this.checkContact(user);
-        }
+        this.changeState('verifyCode', user);
       })
       .catch(err => {
         if (err.code === 'UserNotConfirmedException') {
@@ -40,42 +28,40 @@ class CustomSignIn extends SignIn {
           this.error(err);
         }
       });
-  }
+  };
 
-  showComponent(theme) {
-    const {authState, hide, federated, onStateChange} = this.props;
-    if (hide && hide.includes(SignIn)) {
-      return null;
-    }
+  signUp = e => {
+    e.preventDefault();
+    this.changeState('signUp');
+  };
 
+  showComponent() {
     return (
-      <FormSection theme={theme}>
-        <SectionHeader theme={theme}>{I18n.get('Sign In Account')}</SectionHeader>
-        <SectionBody theme={theme}>
-          <InputRow
-            autoFocus
-            placeholder={I18n.get('Phone number')}
-            theme={theme}
+      <Form>
+        <Form.Item>
+          <Input
+            size="large"
+            prefix={<Icon type="mobile" style={{color: 'rgba(0,0,0,.25)'}} />}
+            placeholder="phone number"
             key="username"
             name="username"
             onChange={this.handleInputChange}
           />
-          <ButtonRow theme={theme} onClick={this.signIn}>
-            {I18n.get('Sign In')}
-          </ButtonRow>
-          <FederatedButtons
-            federated={federated}
-            theme={theme}
-            authState={authState}
-            onStateChange={onStateChange}
-          />
-        </SectionBody>
-        <SectionFooter theme={theme}>
-          <Link theme={theme} onClick={() => this.changeState('signUp')}>
-            {I18n.get('Sign Up')}
-          </Link>
-        </SectionFooter>
-      </FormSection>
+        </Form.Item>
+        <Form.Item>
+          <Button
+            size="large"
+            type="primary"
+            htmlType="submit"
+            onClick={this.signIn}
+            style={{width: '100%'}}>
+            Log in
+          </Button>
+        </Form.Item>
+        <div style={{fontSize: 16}}>
+          Or <a onClick={this.signUp}>register now!</a>
+        </div>
+      </Form>
     );
   }
 }

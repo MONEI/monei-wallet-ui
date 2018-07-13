@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Amplify, {Auth} from 'aws-amplify';
-import {withAuthenticator} from 'aws-amplify-react';
 import AWSAppSyncClient from 'aws-appsync';
 import {Rehydrated} from 'aws-appsync-react';
 import {AUTH_TYPE} from 'aws-appsync/lib/link/auth-link';
@@ -10,15 +9,7 @@ import {AWSIoTProvider} from 'aws-amplify/lib/PubSub/Providers';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {message} from 'antd';
 import aws_exports from './aws-exports';
-
-import SignUp from './components/Auth/SignUp';
-import SignIn from './components/Auth/SignIn';
-import ConfirmSignIn from './components/Auth/ConfirmSignIn';
-import ConfirmSignUp from './components/Auth/ConfirmSignUp';
-import ForgotPassword from './components/Auth/ForgotPassword';
-import RequireNewPassword from './components/Auth/RequireNewPassword';
-import VerifyContact from './components/Auth/VerifyContact';
-import VerifyCode from './components/Auth/VerifyCode';
+import {withAuthenticator} from './components/Auth/Authenticator';
 
 message.config({
   top: 11,
@@ -73,6 +64,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <ApolloProvider client={client}>
         <Rehydrated>
@@ -85,13 +77,4 @@ class App extends Component {
   }
 }
 
-export default withAuthenticator(App, false, [
-  <SignIn />,
-  <ConfirmSignIn />,
-  <SignUp />,
-  <ConfirmSignUp />,
-  <ForgotPassword />,
-  <VerifyContact />,
-  <RequireNewPassword />,
-  <VerifyCode />
-]);
+export default withAuthenticator(App);
