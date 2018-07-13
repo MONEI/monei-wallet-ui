@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Authenticator} from 'aws-amplify-react';
 import Spinner from '../Spinner';
 import {Auth} from 'aws-amplify';
 import SignUp from './SignUp';
@@ -19,7 +18,7 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-export const withAuthenticator = Component =>
+export const withAuthenticator = Cmp =>
   class AuthenticatorWrapper extends Component {
     state = {auth: 'init'};
 
@@ -57,7 +56,7 @@ export const withAuthenticator = Component =>
         onAuthEvent: this.handleAuthEvent
       };
       if (auth === 'init') return <Spinner size="large" />;
-      if (auth === 'signedIn') return <Component {...authProps} />;
+      if (auth === 'signedIn') return <Cmp {...authProps} />;
       return (
         <Centered>
           <Container>
