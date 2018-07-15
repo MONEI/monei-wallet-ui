@@ -5,10 +5,6 @@ import React from 'react';
 import {isValidNumber} from 'libphonenumber-js/custom';
 import metadata from 'libphonenumber-js/metadata.full.json';
 
-function hasErrors(fieldsError) {
-  return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
-
 class CustomSignIn extends SignIn {
   handleSubmit = e => {
     e.preventDefault();
