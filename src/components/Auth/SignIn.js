@@ -2,6 +2,8 @@ import {Button, Form, Icon, Input} from 'antd';
 import {Auth} from 'aws-amplify';
 import {SignIn} from 'aws-amplify-react';
 import React from 'react';
+import {isValidNumber} from 'libphonenumber-js/custom';
+import metadata from 'libphonenumber-js/metadata.full.json';
 
 class CustomSignIn extends SignIn {
   handleSubmit = e => {
@@ -18,12 +20,7 @@ class CustomSignIn extends SignIn {
         .catch(err => {
           this.setState({loading: false});
           form.setFields({username: {value: username, errors: [err]}});
-          if (err.code === 'UserNotConfirmedException') {
-            console.log('the user is not confirmed');
-            this.changeState('confirmSignUp');
-          } else {
-            this.error(err);
-          }
+          this.error(err);
         });
     });
   };
@@ -39,13 +36,22 @@ class CustomSignIn extends SignIn {
       <Form onSubmit={this.handleSubmit}>
         <Form.Item>
           {getFieldDecorator('username', {
-            rules: [{required: true, message: 'Please input your phone!'}]
+            validateTrigger: 'onBlur',
+            rules: [
+              {
+                required: true,
+                message: 'Please input a valid phone number!',
+                validator(rule, value, cb) {
+                  isValidNumber(value, metadata) ? cb() : cb(true);
+                }
+              }
+            ]
           })(
             <Input
               size="large"
               autoFocus
               prefix={<Icon type="mobile" style={{color: 'rgba(0,0,0,.25)'}} />}
-              placeholder="phone number"
+              placeholder="+14325551212"
               type="tel"
             />
           )}

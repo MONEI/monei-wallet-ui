@@ -8,7 +8,7 @@ import {Centered} from 'globalStyles';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 368px;
+  width: 300px;
   margin: 0 auto;
   padding-bottom: 50px;
 `;

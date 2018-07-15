@@ -2,6 +2,8 @@ import React from 'react';
 import {Form, Icon, Input, Button} from 'antd';
 import * as Auth from 'lib/Auth';
 import {SignUp} from 'aws-amplify-react';
+import {isValidNumber} from 'libphonenumber-js/custom';
+import metadata from 'libphonenumber-js/metadata.full.json';
 
 class CustomSignUp extends SignUp {
   state = {};
@@ -37,13 +39,22 @@ class CustomSignUp extends SignUp {
       <Form onSubmit={this.handleSubmit}>
         <Form.Item>
           {getFieldDecorator('username', {
-            rules: [{required: true, message: 'Please input your phone!'}]
+            validateTrigger: 'onBlur',
+            rules: [
+              {
+                required: true,
+                message: 'Please input a valid phone number!',
+                validator(rule, value, cb) {
+                  isValidNumber(value, metadata) ? cb() : cb(true);
+                }
+              }
+            ]
           })(
             <Input
               size="large"
               autoFocus
               prefix={<Icon type="mobile" style={{color: 'rgba(0,0,0,.25)'}} />}
-              placeholder="phone number"
+              placeholder="+14325551212"
               type="tel"
             />
           )}
