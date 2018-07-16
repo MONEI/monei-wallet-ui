@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
+import {message} from 'antd';
 import Amplify, {Auth} from 'aws-amplify';
+import {AWSIoTProvider} from '@aws-amplify/pubsub';
 import AWSAppSyncClient from 'aws-appsync';
 import {Rehydrated} from 'aws-appsync-react';
 import {AUTH_TYPE} from 'aws-appsync/lib/link/auth-link';
+import React, {Component} from 'react';
 import {ApolloProvider} from 'react-apollo';
-import MainLayout from './layout';
-import {AWSIoTProvider} from 'aws-amplify/lib/PubSub/Providers';
 import {BrowserRouter as Router} from 'react-router-dom';
-import {message} from 'antd';
 import aws_exports from './aws-exports';
 import {withAuthenticator} from './components/Auth';
+import MainLayout from './layout';
 
 message.config({
   top: 11,
