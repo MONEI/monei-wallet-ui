@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^3.6.6",
-    "aws-amplify": "0.4.8",
-    "aws-amplify-react": "0.1.54",
+    "@aws-amplify/pubsub": "^1.0.0",
+    "antd": "^3.7.0",
+    "aws-amplify": "1.0.0",
+    "aws-amplify-react": "1.0.0",
     "aws-appsync": "1.2.1",
     "aws-appsync-react": "^1.0.21",
     "classnames": "^2.2.6",
