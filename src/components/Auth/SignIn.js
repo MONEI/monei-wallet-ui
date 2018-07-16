@@ -3,7 +3,7 @@ import {Auth} from 'aws-amplify';
 import {SignIn} from 'aws-amplify-react';
 import React from 'react';
 import {isValidNumber} from 'libphonenumber-js/custom';
-import metadata from 'libphonenumber-js/metadata.full.json';
+import metadata from 'libphonenumber-js/metadata.min.json';
 
 class CustomSignIn extends SignIn {
   handleSubmit = e => {
@@ -40,7 +40,7 @@ class CustomSignIn extends SignIn {
             rules: [
               {
                 required: true,
-                message: 'Please input a valid phone number!',
+                message: 'please input a valid phone number!',
                 validator(rule, value, cb) {
                   isValidNumber(value, metadata) ? cb() : cb(true);
                 }

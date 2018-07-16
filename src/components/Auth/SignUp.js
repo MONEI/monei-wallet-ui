@@ -3,7 +3,7 @@ import {Form, Icon, Input, Button} from 'antd';
 import * as Auth from 'lib/Auth';
 import {SignUp} from 'aws-amplify-react';
 import {isValidNumber} from 'libphonenumber-js/custom';
-import metadata from 'libphonenumber-js/metadata.full.json';
+import metadata from 'libphonenumber-js/metadata.min.json';
 
 class CustomSignUp extends SignUp {
   state = {};
@@ -43,7 +43,7 @@ class CustomSignUp extends SignUp {
             rules: [
               {
                 required: true,
-                message: 'Please input a valid phone number!',
+                message: 'please input a valid phone number!',
                 validator(rule, value, cb) {
                   isValidNumber(value, metadata) ? cb() : cb(true);
                 }

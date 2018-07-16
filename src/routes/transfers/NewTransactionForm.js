@@ -1,5 +1,8 @@
+import {Button, Form, Icon, Input, InputNumber, Modal, Select} from 'antd';
+import {isValidNumber} from 'libphonenumber-js/custom';
+import metadata from 'libphonenumber-js/metadata.min.json';
+import utils from 'web3-utils';
 import React, {Component} from 'react';
-import {Form, Input, InputNumber, Button, Modal, Select, Icon} from 'antd';
 
 const {TextArea} = Input;
 const {confirm} = Modal;
@@ -8,15 +11,43 @@ const {Option} = Select;
 const RECIPIENT_FIELDS = {
   phoneNumber: {
     name: 'Phone number',
-    placeholder: '+14325551212'
+    placeholder: '+14325551212',
+    options: {
+      validateTrigger: 'onBlur',
+      rules: [
+        {
+          required: true,
+          message: 'please input a valid phone number!',
+          validator(rule, value, cb) {
+            isValidNumber(value, metadata) ? cb() : cb(true);
+          }
+        }
+      ]
+    }
   },
   email: {
     name: 'Email',
-    placeholder: 'email@example.com'
+    placeholder: 'email@example.com',
+    options: {
+      validateTrigger: 'onBlur',
+      rules: [{required: true, message: 'please input a valid email', type: 'email'}]
+    }
   },
   ethAddress: {
     name: 'Wallet address',
-    placeholder: '0x1d0c461935E3827b30D125A53543b95ABc21efe8'
+    placeholder: '0x1d0c461935E3827b30D125A53543b95ABc21efe8',
+    options: {
+      validateTrigger: 'onBlur',
+      rules: [
+        {
+          required: true,
+          message: 'please input a valid wallet address',
+          validator(rule, value, cb) {
+            utils.isAddress(value) ? cb() : cb(true);
+          }
+        }
+      ]
+    }
   }
 };
 
@@ -69,7 +100,7 @@ class NewTransactionForm extends Component {
         </Form.Item>
         <Form.Item labelCol={{span: 6}} wrapperCol={{span: 18}} label={selectedField.name}>
           <Input
-            {...requiredField(this.state.recipientField)}
+            {...getFieldProps(selectedField.name, selectedField.options)}
             placeholder={selectedField.placeholder}
           />
         </Form.Item>
