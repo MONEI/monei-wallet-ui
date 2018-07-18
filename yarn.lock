@@ -623,16 +623,16 @@ aws-amplify@1.0.0:
     "@aws-amplify/pubsub" "^1.0.0"
     "@aws-amplify/storage" "^1.0.0"
 
-aws-appsync-react@^1.0.21:
-  version "1.0.21"
-  resolved "https://registry.yarnpkg.com/aws-appsync-react/-/aws-appsync-react-1.0.21.tgz#d3bcd3e17d41caf112d61beabdfac0fc00aca96c"
+aws-appsync-react@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/aws-appsync-react/-/aws-appsync-react-1.1.0.tgz#8a80a1500427367637f6eebaa36da0f122c382e6"
   dependencies:
-    aws-appsync "^1.2.1"
+    aws-appsync "^1.3.0"
     prop-types "^15.6.0"
 
-aws-appsync@1.2.1, aws-appsync@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/aws-appsync/-/aws-appsync-1.2.1.tgz#ddcd6e2003dc51ba60670b86c2ab576431dce74f"
+aws-appsync@1.3.0, aws-appsync@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/aws-appsync/-/aws-appsync-1.3.0.tgz#fa033befa517ab8793654269155c4332886c6895"
   dependencies:
     "@redux-offline/redux-offline" "^2.2.1"
     apollo-cache-inmemory "^1.0.0"
@@ -646,6 +646,7 @@ aws-appsync@1.2.1, aws-appsync@^1.2.1:
     redux-thunk "^2.2.0"
     setimmediate "^1.0.5"
     url "^0.11.0"
+    uuid "3.x"
 
 aws-sdk@2.198.0:
   version "2.198.0"
@@ -8322,13 +8323,13 @@ uuid@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
 
+uuid@3.x, uuid@^3.0.0:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
+
 uuid@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
-
-uuid@^3.0.0:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
 uuid@^3.1.0, uuid@^3.2.1:
   version "3.2.1"

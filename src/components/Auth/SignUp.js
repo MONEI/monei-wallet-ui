@@ -11,10 +11,10 @@ class CustomSignUp extends SignUp {
   handleSubmit = e => {
     e.preventDefault();
     const {form} = this.props;
-    form.validateFields((error, {username}) => {
+    form.validateFields((error, {username, name}) => {
       if (error) return;
       this.setState({loading: true});
-      Auth.signUp(username)
+      Auth.signUp({username, name})
         .then(user => {
           this.setState({loading: false});
           this.changeState('verifyCode', user);
@@ -38,13 +38,23 @@ class CustomSignUp extends SignUp {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Item>
+          {getFieldDecorator('name')(
+            <Input
+              size="large"
+              autoFocus
+              prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}} />}
+              placeholder="Your Name"
+            />
+          )}
+        </Form.Item>
+        <Form.Item>
           {getFieldDecorator('username', {
             validateTrigger: 'onBlur',
             rules: [
               {
                 required: true,
                 message: 'please input a valid phone number!',
-                validator(rule, value, cb) {
+                validator(rule, value = '', cb) {
                   isValidNumber(value, metadata) ? cb() : cb(true);
                 }
               }
@@ -52,7 +62,6 @@ class CustomSignUp extends SignUp {
           })(
             <Input
               size="large"
-              autoFocus
               prefix={<Icon type="mobile" style={{color: 'rgba(0,0,0,.25)'}} />}
               placeholder="+14325551212"
               type="tel"

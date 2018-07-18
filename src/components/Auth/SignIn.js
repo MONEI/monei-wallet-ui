@@ -41,7 +41,7 @@ class CustomSignIn extends SignIn {
               {
                 required: true,
                 message: 'please input a valid phone number!',
-                validator(rule, value, cb) {
+                validator(rule, value = '', cb) {
                   isValidNumber(value, metadata) ? cb() : cb(true);
                 }
               }

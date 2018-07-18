@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 export const UserQuery = gql`
   query GetUserData {
     user {
+      name
       address
       email
       phoneNumber
