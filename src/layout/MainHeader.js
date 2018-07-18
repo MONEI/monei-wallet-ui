@@ -45,7 +45,7 @@ const MainHeader = ({logout, user}) => {
       <Logo>MONEI Wallet</Logo>
       <Info>Your balance {(user.balance / 100).toFixed(2)} EURM</Info>
       <Spacer />
-      <Username>{user.phoneNumber}</Username>
+      <Username>Hi, {user.name || user.phoneNumber}</Username>
       <Logout>
         <Icon type="logout" onClick={logout} />
       </Logout>
