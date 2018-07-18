@@ -6,6 +6,8 @@ const Account = ({user}) => {
     <div>
       <Card title="Personal data" style={{maxWidth: 550}}>
         <dl>
+          <dt>Name</dt>
+          <dd>{user.name}</dd>
           <dt>Phone number</dt>
           <dd>{user.phoneNumber}</dd>
           <dt>Wallet address</dt>
