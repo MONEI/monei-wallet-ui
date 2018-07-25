@@ -25,18 +25,7 @@ export const withAuthenticator = Cmp =>
     handleStateChange = (state, data) => {
       if (state === this.state.auth) return;
       if (state === 'signedOut') state = 'signIn';
-      this.setState({auth: state, user: this.normalizeUser(data), error: null});
-    };
-
-    normalizeUser = data => {
-      const user = {
-        id: data.id,
-        username: data.username
-      };
-      Object.keys(data.attributes).forEach(key => {
-        user[key.replace('custom:', '')] = data.attributes[key];
-      });
-      return user;
+      this.setState({auth: state, authData: data, error: null});
     };
 
     componentDidMount() {
@@ -46,6 +35,7 @@ export const withAuthenticator = Cmp =>
     checkUser() {
       return Auth.currentUserInfo()
         .then(user => {
+          console.log('User:', user);
           const state = user ? 'signedIn' : 'signIn';
           this.handleStateChange(state, user);
         })
@@ -62,26 +52,23 @@ export const withAuthenticator = Cmp =>
       try {
         const cognitoUser = await Auth.currentAuthenticatedUser();
         await Auth.updateUserAttributes(cognitoUser, data);
-        const user = await Auth.currentUserInfo();
-        this.setState({user});
+        const authData = await Auth.currentUserInfo();
+        this.setState({authData});
       } catch (err) {
         console.log(err);
       }
     };
 
     render() {
-      const {auth, user} = this.state;
+      const {auth, authData} = this.state;
       const authProps = {
         authState: auth,
-        user,
+        authData,
         onStateChange: this.handleStateChange,
         onAuthEvent: this.handleAuthEvent
       };
       if (auth === 'init') return <Spinner size="large" />;
-      if (auth === 'signedIn')
-        return (
-          <Cmp {...authProps} onUpdateUser={this.handleUpdateUser} onLogout={this.handleLogout} />
-        );
+      if (auth === 'signedIn') return <Cmp {...authProps} onUpdateUser={this.handleUpdateUser} />;
       return (
         <Centered>
           <Container>

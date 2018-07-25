@@ -57,18 +57,23 @@ const client = new AWSAppSyncClient({
 //Amplify.Logger.LOG_LEVEL = 'DEBUG';
 
 class App extends Component {
-  logout = async () => {
+  handleLogout = async () => {
     await Auth.signOut();
     this.props.onStateChange('signedOut');
     setTimeout(() => client.resetStore(), 0);
   };
+
+  async componentDidMount() {
+    let user = await Auth.currentUserInfo();
+    console.log(user);
+  }
 
   render() {
     return (
       <ApolloProvider client={client}>
         <Rehydrated>
           <Router>
-            <MainLayout {...this.props} logout={this.logout} />
+            <MainLayout {...this.props} onLogout={this.handleLogout} />
           </Router>
         </Rehydrated>
       </ApolloProvider>

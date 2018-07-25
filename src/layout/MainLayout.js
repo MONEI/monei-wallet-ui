@@ -32,17 +32,21 @@ const Footer = styled(Layout.Footer)`
   text-align: center;
 `;
 
-const MainLayout = ({logout, location, user}) => {
+const MainLayout = ({onLogout, onUpdateUser, location, authData}) => {
+  const user = authData.attributes;
   return (
     <Layout>
-      <MainHeader logout={logout} username={user.name || user.phone_number} />
+      <MainHeader logout={onLogout} username={user.name || user.phone_number} />
       <MainSidebar />
       <Container>
         <Content>
           <Route exact path="/" component={Transactions} />
           <Route path="/transfers" component={Transfers} />
           <Route path="/buy" component={Buy} />
-          <Route path="/account" component={props => <Account {...props} user={user} />} />
+          <Route
+            path="/account"
+            component={props => <Account {...props} user={user} updateUser={onUpdateUser} />}
+          />
         </Content>
         <Footer>
           ©2018{' '}
@@ -52,7 +56,7 @@ const MainLayout = ({logout, location, user}) => {
         </Footer>
       </Container>
       <ApolloConsumer>
-        {client => <Notifications topic={user.eth_address} client={client} />}
+        {client => <Notifications topic={user['custom:eth_address']} client={client} />}
       </ApolloConsumer>
     </Layout>
   );

@@ -1,55 +1,77 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {Card, Form, Input, Button} from 'antd';
-import {Auth} from 'aws-amplify';
+import {compact} from 'lib/utils';
 
 class Account extends Component {
   state = {
-    loading: false
+    isLoading: false,
+    isEditing: false
   };
 
   handleSubmit = e => {
     e.preventDefault();
     const {form} = this.props;
-    form.validateFields(async (error, data) => {
-      let user = await Auth.currentAuthenticatedUser();
-      let result = await Auth.updateUserAttributes(user, data);
-      user = await Auth.currentUserInfo();
-      console.log(result, user); // SUCCESS
+    form.validateFields((err, data) => {
+      if (err) return;
+      this.setState({isLoading: true});
+      this.props.updateUser(compact(data));
     });
   };
 
   render() {
-    const {user, authData} = this.props;
-    console.log(authData);
+    const {user} = this.props;
+    const {isLoading, isEditing} = this.state;
     const {getFieldDecorator} = this.props.form;
     return (
-      <div>
-        <Card title="Personal data" style={{maxWidth: 550}}>
-          <dl>
-            <dt>Name</dt>
-            <dd>{user.name}</dd>
-            <dt>Phone number</dt>
-            <dd>{user.phone_number}</dd>
-            <dt>Wallet address</dt>
-            <dd>{user.eth_address}</dd>
-          </dl>
-
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Item>{getFieldDecorator('name')(<Input placeholder="Your Name" />)}</Form.Item>
-            <Form.Item>
-              <Button loading={this.state.loading} type="primary" htmlType="submit">
-                Save
-              </Button>
+      <Card title="Personal data" style={{maxWidth: 550}}>
+        {isEditing ? (
+          <Form onSubmit={this.handleSubmit} layout="vertical">
+            <Form.Item label="Name">
+              {getFieldDecorator('name', {initialValue: user.name})(<Input />)}
             </Form.Item>
+            <Form.Item label="Email">
+              {getFieldDecorator('email', {initialValue: user.email})(<Input />)}
+            </Form.Item>
+            <Form.Item label="IBAN">
+              {getFieldDecorator('custom:iban', {initialValue: user['custom:iban']})(<Input />)}
+            </Form.Item>
+            <Button onClick={() => this.setState({isEditing: false})}>Cancel</Button>{' '}
+            <Button loading={isLoading} type="primary" htmlType="submit">
+              Save
+            </Button>
           </Form>
-        </Card>
-      </div>
+        ) : (
+          <Fragment>
+            <dl>
+              <dt>Name</dt>
+              <dd>{user.name}</dd>
+              {user.email && (
+                <Fragment>
+                  <dt>Email</dt>
+                  <dd>
+                    {user.email} {!user.email_verified && '(unverified)'}
+                  </dd>
+                </Fragment>
+              )}
+              <dt>Phone number</dt>
+              <dd>{user.phone_number}</dd>
+              <dt>Wallet address</dt>
+              <dd>{user['custom:eth_address']}</dd>
+              {user['custom:iban'] && (
+                <Fragment>
+                  <dt>IBAN</dt>
+                  <dd>{user['custom:iban']}</dd>
+                </Fragment>
+              )}
+            </dl>
+            <Button type="primary" onClick={() => this.setState({isEditing: true})}>
+              Edit
+            </Button>
+          </Fragment>
+        )}
+      </Card>
     );
   }
 }
 
-const mapPropsToFields = props => ({
-  name: Form.createFormField({value: props.user.name})
-});
-
-export default Form.create({mapPropsToFields})(Account);
+export default Form.create()(Account);
