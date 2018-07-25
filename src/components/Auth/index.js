@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import Spinner from '../Spinner';
 import {Auth} from 'aws-amplify';
-import SignUp from './SignUp';
-import SignIn from './SignIn';
-import VerifyCode from './VerifyCode';
 import {Centered} from 'globalStyles';
+import React, {Component} from 'react';
 import styled from 'styled-components';
+import Spinner from '../Spinner';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
+import VerifyCode from './VerifyCode';
 
 const Container = styled.div`
   width: 300px;
@@ -25,7 +25,18 @@ export const withAuthenticator = Cmp =>
     handleStateChange = (state, data) => {
       if (state === this.state.auth) return;
       if (state === 'signedOut') state = 'signIn';
-      this.setState({auth: state, authData: data, error: null});
+      this.setState({auth: state, user: this.normalizeUser(data), error: null});
+    };
+
+    normalizeUser = data => {
+      const user = {
+        id: data.id,
+        username: data.username
+      };
+      Object.keys(data.attributes).forEach(key => {
+        user[key.replace('custom:', '')] = data.attributes[key];
+      });
+      return user;
     };
 
     componentDidMount() {
@@ -47,16 +58,30 @@ export const withAuthenticator = Cmp =>
       }
     };
 
+    handleUpdateUser = async data => {
+      try {
+        const cognitoUser = await Auth.currentAuthenticatedUser();
+        await Auth.updateUserAttributes(cognitoUser, data);
+        const user = await Auth.currentUserInfo();
+        this.setState({user});
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     render() {
-      const {auth, authData} = this.state;
+      const {auth, user} = this.state;
       const authProps = {
         authState: auth,
-        authData: authData,
+        user,
         onStateChange: this.handleStateChange,
         onAuthEvent: this.handleAuthEvent
       };
       if (auth === 'init') return <Spinner size="large" />;
-      if (auth === 'signedIn') return <Cmp {...authProps} />;
+      if (auth === 'signedIn')
+        return (
+          <Cmp {...authProps} onUpdateUser={this.handleUpdateUser} onLogout={this.handleLogout} />
+        );
       return (
         <Centered>
           <Container>

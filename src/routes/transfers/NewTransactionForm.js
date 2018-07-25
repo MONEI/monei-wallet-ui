@@ -100,7 +100,7 @@ class NewTransactionForm extends Component {
         </Form.Item>
         <Form.Item labelCol={{span: 6}} wrapperCol={{span: 18}} label={selectedField.name}>
           <Input
-            {...getFieldProps(selectedField.name, selectedField.options)}
+            {...getFieldProps(this.state.recipientField, selectedField.options)}
             placeholder={selectedField.placeholder}
           />
         </Form.Item>

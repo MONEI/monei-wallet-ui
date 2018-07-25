@@ -1,6 +1,8 @@
-import React from 'react';
-import {Layout, Icon} from 'antd';
+import {Icon, Layout} from 'antd';
+import {GetBalanceQuery} from 'api/queries';
 import {Spacer} from 'globalStyles';
+import React from 'react';
+import {graphql} from 'react-apollo';
 import styled from 'styled-components';
 
 const Header = styled(Layout.Header)`
@@ -39,13 +41,13 @@ const Logout = styled.div`
   font-weight: bold;
 `;
 
-const MainHeader = ({logout, user}) => {
+const MainHeader = ({logout, username, data: {loading, error, balance = 0}}) => {
   return (
     <Header>
       <Logo>MONEI Wallet</Logo>
-      <Info>Your balance {(user.balance / 100).toFixed(2)} EURM</Info>
+      {!loading && <Info>Your balance {(balance / 100).toFixed(2)} EURM</Info>}
       <Spacer />
-      <Username>Hi, {user.name || user.phoneNumber}</Username>
+      <Username>Hi, {username}</Username>
       <Logout>
         <Icon type="logout" onClick={logout} />
       </Logout>
@@ -53,4 +55,4 @@ const MainHeader = ({logout, user}) => {
   );
 };
 
-export default MainHeader;
+export default graphql(GetBalanceQuery)(MainHeader);
