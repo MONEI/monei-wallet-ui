@@ -1,8 +1,8 @@
-import React, {Component, Fragment} from 'react';
-import {Card, Form, Input, Button} from 'antd';
+import {Button, Card, Form, Input} from 'antd';
 import {compact} from 'lib/utils';
+import React, {Component, Fragment} from 'react';
 
-class Account extends Component {
+class PersonalData extends Component {
   state = {
     isLoading: false,
     isEditing: false
@@ -23,7 +23,7 @@ class Account extends Component {
     const {isLoading, isEditing} = this.state;
     const {getFieldDecorator} = this.props.form;
     return (
-      <Card title="Personal data" style={{maxWidth: 550}}>
+      <Card title="Personal data">
         {isEditing ? (
           <Form onSubmit={this.handleSubmit} layout="vertical">
             <Form.Item label="Name">
@@ -31,9 +31,6 @@ class Account extends Component {
             </Form.Item>
             <Form.Item label="Email">
               {getFieldDecorator('email', {initialValue: user.email})(<Input />)}
-            </Form.Item>
-            <Form.Item label="IBAN">
-              {getFieldDecorator('custom:iban', {initialValue: user['custom:iban']})(<Input />)}
             </Form.Item>
             <Button onClick={() => this.setState({isEditing: false})}>Cancel</Button>{' '}
             <Button loading={isLoading} type="primary" htmlType="submit">
@@ -74,4 +71,4 @@ class Account extends Component {
   }
 }
 
-export default Form.create()(Account);
+export default Form.create()(PersonalData);
