@@ -2,10 +2,11 @@ import {Button, Card, Form, Input} from 'antd';
 import React, {Component, Fragment} from 'react';
 import {graphql} from 'react-apollo';
 import {AttachBankAccount} from 'api/mutations';
+import {GetBankAccountQuery} from 'api/queries';
 
 class BankAccount extends Component {
   state = {
-    isLoading: false,
+    isSaving: false,
     isEditing: false
   };
 
@@ -19,8 +20,24 @@ class BankAccount extends Component {
   };
 
   render() {
-    const {isLoading, isEditing} = this.state;
+    const {loading, bankAccount} = this.props.data;
+    const {isSaving, isEditing} = this.state;
     const {getFieldDecorator} = this.props.form;
+    if (loading) return null;
+    if (bankAccount) {
+      return (
+        <Card title="Bank Account">
+          <dl>
+            <dt>Account holder name</dt>
+            <dd>{bankAccount.accountHolderName}</dd>
+            <dt>Country</dt>
+            <dd>{bankAccount.country}</dd>
+            <dt>IBAN</dt>
+            <dd>{bankAccount.IBAN}</dd>
+          </dl>
+        </Card>
+      );
+    }
     return (
       <Card title="Bank Account">
         {isEditing ? (
@@ -31,7 +48,7 @@ class BankAccount extends Component {
             <Form.Item label="Country">{getFieldDecorator('country')(<Input />)}</Form.Item>
             <Form.Item label="IBAN">{getFieldDecorator('IBAN')(<Input />)}</Form.Item>
             <Button onClick={() => this.setState({isEditing: false})}>Cancel</Button>{' '}
-            <Button loading={isLoading} type="primary" htmlType="submit">
+            <Button loading={isSaving} type="primary" htmlType="submit">
               Attach
             </Button>
           </Form>
@@ -49,13 +66,18 @@ class BankAccount extends Component {
 
 const BankAccountForm = Form.create()(BankAccount);
 
-export default graphql(AttachBankAccount, {
-  props: ({mutate}) => ({
-    attachBankAccount: data => {
-      console.log(data);
-      return mutate({
-        variables: data
-      });
-    }
-  })
-})(BankAccountForm);
+const withMutation = Component =>
+  graphql(AttachBankAccount, {
+    props: ({mutate}) => ({
+      attachBankAccount: data => {
+        console.log(data);
+        return mutate({
+          variables: data
+        });
+      }
+    })
+  })(Component);
+
+const withQuery = Component => graphql(GetBankAccountQuery)(Component);
+
+export default withMutation(withQuery(BankAccountForm));

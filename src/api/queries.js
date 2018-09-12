@@ -6,6 +6,17 @@ export const GetBalanceQuery = gql`
   }
 `;
 
+export const GetBankAccountQuery = gql`
+  query GetBankAccount {
+    bankAccount {
+      id
+      accountHolderName
+      country
+      IBAN
+    }
+  }
+`;
+
 export const TransactionsQuery = gql`
   query GetTransactions($from: Int, $size: Int) {
     transactions(from: $from, size: $size) {
