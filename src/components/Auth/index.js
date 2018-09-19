@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import Spinner from '../Spinner';
 import {Auth} from 'aws-amplify';
-import SignUp from './SignUp';
-import SignIn from './SignIn';
-import VerifyCode from './VerifyCode';
 import {Centered} from 'globalStyles';
+import React, {Component} from 'react';
 import styled from 'styled-components';
+import Spinner from '../Spinner';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
+import VerifyCode from './VerifyCode';
 
 const Container = styled.div`
   width: 300px;
@@ -47,16 +47,27 @@ export const withAuthenticator = Cmp =>
       }
     };
 
+    handleUpdateUser = async data => {
+      try {
+        const cognitoUser = await Auth.currentAuthenticatedUser();
+        await Auth.updateUserAttributes(cognitoUser, data);
+        const authData = await Auth.currentUserInfo();
+        this.setState({authData});
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     render() {
       const {auth, authData} = this.state;
       const authProps = {
         authState: auth,
-        authData: authData,
+        authData,
         onStateChange: this.handleStateChange,
         onAuthEvent: this.handleAuthEvent
       };
       if (auth === 'init') return <Spinner size="large" />;
-      if (auth === 'signedIn') return <Cmp {...authProps} />;
+      if (auth === 'signedIn') return <Cmp {...authProps} onUpdateUser={this.handleUpdateUser} />;
       return (
         <Centered>
           <Container>

@@ -13,15 +13,15 @@ class CustomSignUp extends SignUp {
     const {form} = this.props;
     form.validateFields((error, {username, name}) => {
       if (error) return;
-      this.setState({loading: true});
+      this.setState({isLoading: true});
       Auth.signUp({username, name})
         .then(user => {
-          this.setState({loading: false});
+          this.setState({isLoading: false});
           this.changeState('verifyCode', user);
         })
         .catch(err => {
           console.log(err);
-          this.setState({loading: false});
+          this.setState({isLoading: false});
           form.setFields({username: {value: username, errors: [err]}});
           this.error(err);
         });
@@ -70,7 +70,7 @@ class CustomSignUp extends SignUp {
         </Form.Item>
         <Form.Item>
           <Button
-            loading={this.state.loading}
+            loading={this.state.isLoading}
             size="large"
             type="primary"
             htmlType="submit"

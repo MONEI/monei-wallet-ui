@@ -1,5 +1,5 @@
 import produce from 'immer';
-import {TransactionsQuery, UserQuery} from './queries';
+import {TransactionsQuery, GetBalanceQuery} from './queries';
 
 /**
  * Creates transaction in apollo cache
@@ -43,14 +43,14 @@ export const updateLocalTransaction = (client, data) => {
       })
     });
   } catch (_) {}
-  const userData = client.readQuery({query: UserQuery});
+  const balance = client.readQuery({query: GetBalanceQuery});
   client.writeQuery({
-    query: UserQuery,
-    data: produce(userData, draft => {
+    query: GetBalanceQuery,
+    data: produce(balance, draft => {
       if (transaction.income) {
-        draft.user.balance += transaction.amount;
+        draft.balance += transaction.amount;
       } else {
-        draft.user.balance -= transaction.amount;
+        draft.balance -= transaction.amount;
       }
     })
   });

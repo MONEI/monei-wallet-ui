@@ -1,13 +1,18 @@
 import gql from 'graphql-tag';
 
-export const UserQuery = gql`
-  query GetUserData {
-    user {
-      name
-      address
-      email
-      phoneNumber
-      balance
+export const GetBalanceQuery = gql`
+  query GetBalance {
+    balance
+  }
+`;
+
+export const GetBankAccountQuery = gql`
+  query GetBankAccount {
+    bankAccount {
+      id
+      accountHolderName
+      country
+      IBAN
     }
   }
 `;

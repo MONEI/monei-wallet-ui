@@ -11,14 +11,14 @@ class CustomSignIn extends SignIn {
     const {form} = this.props;
     form.validateFields((error, {username}) => {
       if (error) return;
-      this.setState({loading: true});
+      this.setState({isLoading: true});
       Auth.signIn(username)
         .then(user => {
-          this.setState({loading: false});
+          this.setState({isLoading: false});
           this.changeState('verifyCode', user);
         })
         .catch(err => {
-          this.setState({loading: false});
+          this.setState({isLoading: false});
           form.setFields({username: {value: username, errors: [err]}});
           this.error(err);
         });
@@ -58,7 +58,7 @@ class CustomSignIn extends SignIn {
         </Form.Item>
         <Form.Item>
           <Button
-            loading={this.state.loading}
+            loading={this.state.isLoading}
             size="large"
             type="primary"
             htmlType="submit"

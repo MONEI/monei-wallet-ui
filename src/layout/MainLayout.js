@@ -1,19 +1,17 @@
-import React from 'react';
-import {Route} from 'react-router-dom';
-import MainHeader from './MainHeader';
-import MainSidebar from './MainSidebar';
-import {Layout, Alert} from 'antd';
-import {graphql, ApolloConsumer} from 'react-apollo';
-import {UserQuery} from 'api/queries';
-import Spinner from 'components/Spinner';
+import {Layout} from 'antd';
 import Notifications from 'components/Notifications';
-import styled from 'styled-components';
+import React from 'react';
+import {ApolloConsumer} from 'react-apollo';
+import {Route} from 'react-router-dom';
+import Account from 'routes/account';
+import Buy from 'routes/buy';
 
 // Routes
 import Transactions from 'routes/transactions';
 import Transfers from 'routes/transfers';
-import Account from 'routes/account';
-import Buy from 'routes/buy';
+import styled from 'styled-components';
+import MainHeader from './MainHeader';
+import MainSidebar from './MainSidebar';
 
 const Container = styled(Layout)`
   margin-left: 200px;
@@ -34,22 +32,21 @@ const Footer = styled(Layout.Footer)`
   text-align: center;
 `;
 
-const MainLayout = ({logout, location, data: {loading, error, user}}) => {
-  if (loading) return <Spinner size="large" />;
-  if (error)
-    return (
-      <Alert message="Error" description={error.graphQLErrors[0].message} type="error" showIcon />
-    );
+const MainLayout = ({onLogout, onUpdateUser, location, authData}) => {
+  const user = authData.attributes;
   return (
     <Layout>
-      <MainHeader logout={logout} user={user} />
+      <MainHeader logout={onLogout} username={user.name || user.phone_number} />
       <MainSidebar />
       <Container>
         <Content>
           <Route exact path="/" component={Transactions} />
           <Route path="/transfers" component={Transfers} />
           <Route path="/buy" component={Buy} />
-          <Route path="/account" component={props => <Account {...props} user={user} />} />
+          <Route
+            path="/account"
+            component={props => <Account {...props} user={user} updateUser={onUpdateUser} />}
+          />
         </Content>
         <Footer>
           ©2018{' '}
@@ -59,10 +56,10 @@ const MainLayout = ({logout, location, data: {loading, error, user}}) => {
         </Footer>
       </Container>
       <ApolloConsumer>
-        {client => <Notifications topic={user.address} client={client} />}
+        {client => <Notifications topic={user['custom:eth_address']} client={client} />}
       </ApolloConsumer>
     </Layout>
   );
 };
 
-export default graphql(UserQuery)(MainLayout);
+export default MainLayout;

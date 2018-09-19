@@ -12,19 +12,19 @@ class VerifyCode extends ConfirmSignIn {
   handleSubmit = e => {
     e.preventDefault();
     const {form, authData} = this.props;
-    form.validateFields((error, {code}) => {
+    form.validateFields(async (error, {code}) => {
       if (error) return;
-      this.setState({loading: true});
-      Auth.sendCustomChallengeAnswer(authData, code)
-        .then(user => {
-          this.setState({loading: false});
-          this.changeState('signedIn', user);
-        })
-        .catch(err => {
-          this.setState({loading: false});
-          form.setFields({code: {value: code, errors: [err]}});
-          this.error(err);
-        });
+      this.setState({isLoading: true});
+      try {
+        await Auth.sendCustomChallengeAnswer(authData, code);
+        const user = await Auth.currentUserInfo();
+        this.setState({isLoading: false});
+        this.changeState('signedIn', user);
+      } catch (err) {
+        this.setState({isLoading: false});
+        form.setFields({code: {value: code, errors: [err]}});
+        this.error(err);
+      }
     });
   };
 
@@ -52,7 +52,7 @@ class VerifyCode extends ConfirmSignIn {
         </Form.Item>
         <Form.Item>
           <Button
-            loading={this.state.loading}
+            loading={this.state.isLoading}
             size="large"
             type="primary"
             htmlType="submit"

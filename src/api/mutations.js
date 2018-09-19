@@ -37,3 +37,23 @@ export const PrepareCheckoutMutation = gql`
     }
   }
 `;
+
+export const AttachBankAccount = gql`
+  mutation AttachBankAccount($accountHolderName: String!, $country: String!, $IBAN: String!) {
+    attachBankAccount(accountHolderName: $accountHolderName, country: $country, IBAN: $IBAN) {
+      id
+      accountHolderName
+      country
+      IBAN
+    }
+  }
+`;
+
+
+export const DetachBankAccount = gql`
+  mutation DetachBankAccount {
+    detachBankAccount {
+      success
+    }
+  }
+`;
