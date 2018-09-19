@@ -35,7 +35,6 @@ export const withAuthenticator = Cmp =>
     checkUser() {
       return Auth.currentUserInfo()
         .then(user => {
-          console.log('User:', user);
           const state = user ? 'signedIn' : 'signIn';
           this.handleStateChange(state, user);
         })

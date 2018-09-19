@@ -48,3 +48,12 @@ export const AttachBankAccount = gql`
     }
   }
 `;
+
+
+export const DetachBankAccount = gql`
+  mutation DetachBankAccount {
+    detachBankAccount {
+      success
+    }
+  }
+`;

@@ -1,12 +1,14 @@
-import {Button, Card, Form, Input} from 'antd';
-import React, {Component, Fragment} from 'react';
-import {graphql} from 'react-apollo';
-import {AttachBankAccount} from 'api/mutations';
+import {Button, Card, Form, Input, Modal} from 'antd';
+import {AttachBankAccount, DetachBankAccount} from 'api/mutations';
 import {GetBankAccountQuery} from 'api/queries';
+import React, {Component, Fragment} from 'react';
+import {compose, graphql} from 'react-apollo';
+
+const {confirm} = Modal;
 
 class BankAccount extends Component {
   state = {
-    isSaving: false,
+    isLoading: false,
     isEditing: false
   };
 
@@ -15,13 +17,27 @@ class BankAccount extends Component {
     const {form} = this.props;
     form.validateFields((err, data) => {
       if (err) return;
-      this.props.attachBankAccount(data);
+      this.setState({isLoading: true});
+      this.props.attachBankAccount(data).then(() => {
+        this.setState({isLoading: false, isEditing: false});
+      });
+    });
+  };
+
+  detach = async () => {
+    const {detachBankAccount} = this.props;
+    confirm({
+      title: 'Are you sure?',
+      content: 'Please confirm that you want to detach your bank account',
+      okText: 'Confirm',
+      onOk: detachBankAccount,
+      onCancel() {}
     });
   };
 
   render() {
     const {loading, bankAccount} = this.props.data;
-    const {isSaving, isEditing} = this.state;
+    const {isLoading, isEditing} = this.state;
     const {getFieldDecorator} = this.props.form;
     if (loading) return null;
     if (bankAccount) {
@@ -35,6 +51,9 @@ class BankAccount extends Component {
             <dt>IBAN</dt>
             <dd>{bankAccount.IBAN}</dd>
           </dl>
+          <Button type="danger" loading={isLoading} onClick={this.detach}>
+            Detach bank account
+          </Button>
         </Card>
       );
     }
@@ -48,7 +67,7 @@ class BankAccount extends Component {
             <Form.Item label="Country">{getFieldDecorator('country')(<Input />)}</Form.Item>
             <Form.Item label="IBAN">{getFieldDecorator('IBAN')(<Input />)}</Form.Item>
             <Button onClick={() => this.setState({isEditing: false})}>Cancel</Button>{' '}
-            <Button loading={isSaving} type="primary" htmlType="submit">
+            <Button loading={isLoading} type="primary" htmlType="submit">
               Attach
             </Button>
           </Form>
@@ -64,20 +83,36 @@ class BankAccount extends Component {
   }
 }
 
-const BankAccountForm = Form.create()(BankAccount);
+const withAttachMutation = graphql(AttachBankAccount, {
+  props: ({mutate}) => ({
+    attachBankAccount: variables => mutate({variables})
+  }),
+  options: {
+    update: (proxy, {data: {attachBankAccount}}) => {
+      proxy.writeQuery({
+        query: GetBankAccountQuery,
+        data: {bankAccount: {...attachBankAccount, __typename: 'bankAccount'}}
+      });
+    }
+  }
+});
 
-const withMutation = Component =>
-  graphql(AttachBankAccount, {
-    props: ({mutate}) => ({
-      attachBankAccount: data => {
-        console.log(data);
-        return mutate({
-          variables: data
-        });
+const withDetachMutation = graphql(DetachBankAccount, {
+  props: ({mutate}) => ({
+    detachBankAccount: mutate
+  }),
+  options: {
+    update: (proxy, {data: {detachBankAccount}}) => {
+      if (detachBankAccount.success) {
+        proxy.writeQuery({query: GetBankAccountQuery, data: {bankAccount: null}});
       }
-    })
-  })(Component);
+    }
+  }
+});
 
-const withQuery = Component => graphql(GetBankAccountQuery)(Component);
-
-export default withMutation(withQuery(BankAccountForm));
+export default compose(
+  withAttachMutation,
+  withDetachMutation,
+  graphql(GetBankAccountQuery),
+  Form.create()
+)(BankAccount);

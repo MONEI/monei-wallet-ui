@@ -63,11 +63,6 @@ class App extends Component {
     setTimeout(() => client.resetStore(), 0);
   };
 
-  async componentDidMount() {
-    let user = await Auth.currentUserInfo();
-    console.log(user);
-  }
-
   render() {
     return (
       <ApolloProvider client={client}>
