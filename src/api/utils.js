@@ -1,5 +1,5 @@
 import produce from 'immer';
-import {TransactionsQuery, GetBalanceQuery} from './queries';
+import {GetBalanceQuery, TransactionsQuery} from './queries';
 
 /**
  * Creates transaction in apollo cache
@@ -25,7 +25,7 @@ export const createLocalTransaction = (client, data) => {
  * @param client - apollo client
  * @param data - transaction
  */
-export const updateLocalTransaction = (client, data) => {
+export const updateLocalTransaction = async (client, data) => {
   const transaction = {__typename: 'Transaction', toInfo: '', ...data};
   try {
     const transactionsData = client.readQuery({query: TransactionsQuery, variables: {from: 0}});
@@ -43,15 +43,9 @@ export const updateLocalTransaction = (client, data) => {
       })
     });
   } catch (_) {}
-  const balance = client.readQuery({query: GetBalanceQuery});
+  const res = await client.query({query: GetBalanceQuery, fetchPolicy: 'network-only'});
   client.writeQuery({
     query: GetBalanceQuery,
-    data: produce(balance, draft => {
-      if (transaction.income) {
-        draft.balance += transaction.amount;
-      } else {
-        draft.balance -= transaction.amount;
-      }
-    })
+    data: res.data
   });
 };
