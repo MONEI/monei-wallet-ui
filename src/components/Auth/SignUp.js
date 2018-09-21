@@ -79,7 +79,10 @@ class CustomSignUp extends SignUp {
           </Button>
         </Form.Item>
         <div style={{fontSize: 16, textAlign: 'center'}}>
-          Or <a onClick={this.signIn}>log in</a>
+          Or{' '}
+          <a href="/" onClick={this.signIn}>
+            log in
+          </a>
         </div>
       </Form>
     );
