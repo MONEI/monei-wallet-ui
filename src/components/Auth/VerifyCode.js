@@ -61,7 +61,9 @@ class VerifyCode extends ConfirmSignIn {
           </Button>
         </Form.Item>
         <div style={{fontSize: 16, textAlign: 'center'}}>
-          <a onClick={this.signIn}>Back to login</a>
+          <a href="/" onClick={this.signIn}>
+            Back to login
+          </a>
         </div>
       </Form>
     );
