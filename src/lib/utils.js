@@ -6,3 +6,5 @@ export const compact = (object = {}) => {
   });
   return object;
 };
+
+export const delay = ms => new Promise(res => setTimeout(res, ms));
