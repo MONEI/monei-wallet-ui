@@ -41,6 +41,12 @@ const MainSidebar = ({location}) => (
           Buy coins
         </Link>
       </Menu.Item>
+      <Menu.Item key="/sell">
+        <Icon type="euro" />
+        <Link to="/sell" className="nav-text">
+          Sell coins
+        </Link>
+      </Menu.Item>
       <Menu.Item key="/account">
         <Icon type="setting" />
         <Link to="/account" className="nav-text">
