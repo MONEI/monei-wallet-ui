@@ -27,6 +27,7 @@ const Content = styled(Layout.Content)`
   width: 100%;
   padding: 30px 50px;
   position: relative;
+  min-height: unset !important;
 `;
 
 const Footer = styled(Layout.Footer)`

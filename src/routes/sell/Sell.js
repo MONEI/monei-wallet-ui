@@ -7,7 +7,7 @@ class Sell extends Component {
     try {
       await this.props.newWithdrawal(data);
       message.success(
-        "Transfer was successful, you'll receive funds on your bank account within 24 hours"
+        "Transfer was successful, you'll receive funds on your bank account within 5 working days"
       );
       return true;
     } catch (error) {

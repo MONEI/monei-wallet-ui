@@ -47,7 +47,7 @@ const Actions = styled.div`
 `;
 
 const Value = styled.div`
-  width: 100px;
+  width: 150px;
   text-align: right;
   font-size: 1.8em;
 `;
