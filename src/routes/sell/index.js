@@ -1,5 +1,6 @@
 import {NewWithdrawalMutation} from 'api/mutations';
 import {graphql} from 'react-apollo';
+import {createLocalTransaction} from 'api/utils';
 import Sell from './Sell';
 
 export default graphql(NewWithdrawalMutation, {
@@ -8,7 +9,7 @@ export default graphql(NewWithdrawalMutation, {
       return mutate({
         variables: data,
         update: (client, {data: {newWithdrawal}}) => {
-          console.log(newWithdrawal);
+          createLocalTransaction(client, newWithdrawal);
         }
       });
     }

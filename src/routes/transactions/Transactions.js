@@ -28,7 +28,7 @@ const EmptyList = styled.div`
 const Transactions = ({loading, error, transactions, loadMore}) => {
   if (loading) return <Spinner size="large" />;
 
-  if (transactions.items.length === 0)
+  if (!transactions.items || transactions.items.length === 0)
     return <EmptyList>You don't have any transactions yet</EmptyList>;
 
   const groupedTransactions = groupBy(transactions.items, trx =>
@@ -51,7 +51,9 @@ const Transactions = ({loading, error, transactions, loadMore}) => {
       {Object.keys(groupedTransactions).map(day => (
         <Fragment key={day}>
           <Separator>{day}</Separator>
-          {groupedTransactions[day].map(item => <TransactionItem key={item.id} item={item} />)}
+          {groupedTransactions[day].map(item => (
+            <TransactionItem key={item.id} item={item} />
+          ))}
         </Fragment>
       ))}
     </List>

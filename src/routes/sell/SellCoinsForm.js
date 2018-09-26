@@ -1,9 +1,7 @@
+import {Button, Form, Icon, InputNumber, Modal} from 'antd';
 import React, {Component} from 'react';
-import {Form, InputNumber, Button, Icon, Modal} from 'antd';
 
 const {confirm} = Modal;
-
-const ButtonGroup = Button.Group;
 
 class SellCoinsForm extends Component {
   handleSubmit = e => {
