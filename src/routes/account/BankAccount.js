@@ -1,10 +1,12 @@
-import {Button, Card, Form, Input, Modal} from 'antd';
+import {Button, Card, Form, Input, Modal, Select} from 'antd';
 import {AttachBankAccount, DetachBankAccount} from 'api/mutations';
 import {GetBankAccountQuery} from 'api/queries';
+import {COUNTRIES} from 'lib/constants';
 import React, {Component, Fragment} from 'react';
 import {compose, graphql} from 'react-apollo';
 
 const {confirm} = Modal;
+const {Option} = Select;
 
 class BankAccount extends Component {
   state = {
@@ -47,7 +49,7 @@ class BankAccount extends Component {
             <dt>Account holder name</dt>
             <dd>{bankAccount.accountHolderName}</dd>
             <dt>Country</dt>
-            <dd>{bankAccount.country}</dd>
+            <dd>{COUNTRIES[bankAccount.country]}</dd>
             <dt>IBAN</dt>
             <dd>{bankAccount.IBAN}</dd>
           </dl>
@@ -64,7 +66,21 @@ class BankAccount extends Component {
             <Form.Item label="Account holder name">
               {getFieldDecorator('accountHolderName')(<Input />)}
             </Form.Item>
-            <Form.Item label="Country">{getFieldDecorator('country')(<Input />)}</Form.Item>
+            <Form.Item label="Country">
+              {getFieldDecorator('country')(
+                <Select
+                  defaultActiveFirstOption
+                  showSearch
+                  optionFilterProp="children"
+                  filterOption>
+                  {Object.keys(COUNTRIES).map(code => (
+                    <Option key={code} value={code}>
+                      {COUNTRIES[code]}
+                    </Option>
+                  ))}
+                </Select>
+              )}
+            </Form.Item>
             <Form.Item label="IBAN">{getFieldDecorator('IBAN')(<Input />)}</Form.Item>
             <Button onClick={() => this.setState({isEditing: false})}>Cancel</Button>{' '}
             <Button loading={isLoading} type="primary" htmlType="submit">
