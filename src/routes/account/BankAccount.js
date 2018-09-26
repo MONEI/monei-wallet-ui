@@ -1,12 +1,11 @@
-import {Button, Card, Form, Input, Modal, Select} from 'antd';
+import {Button, Card, Form, Input, Modal} from 'antd';
 import {AttachBankAccount, DetachBankAccount} from 'api/mutations';
 import {GetBankAccountQuery} from 'api/queries';
-import {COUNTRIES} from 'lib/constants';
 import React, {Component, Fragment} from 'react';
 import {compose, graphql} from 'react-apollo';
+import IBAN from 'iban';
 
 const {confirm} = Modal;
-const {Option} = Select;
 
 class BankAccount extends Component {
   state = {
@@ -49,7 +48,7 @@ class BankAccount extends Component {
             <dt>Account holder name</dt>
             <dd>{bankAccount.accountHolderName}</dd>
             <dt>Country</dt>
-            <dd>{COUNTRIES[bankAccount.country]}</dd>
+            <dd>{bankAccount.country}</dd>
             <dt>IBAN</dt>
             <dd>{bankAccount.IBAN}</dd>
           </dl>
@@ -64,24 +63,22 @@ class BankAccount extends Component {
         {isEditing ? (
           <Form onSubmit={this.handleSubmit} layout="vertical">
             <Form.Item label="Account holder name">
-              {getFieldDecorator('accountHolderName')(<Input />)}
+              {getFieldDecorator('accountHolderName', {rules: [{required: true}]})(<Input />)}
             </Form.Item>
-            <Form.Item label="Country">
-              {getFieldDecorator('country')(
-                <Select
-                  defaultActiveFirstOption
-                  showSearch
-                  optionFilterProp="children"
-                  filterOption>
-                  {Object.keys(COUNTRIES).map(code => (
-                    <Option key={code} value={code}>
-                      {COUNTRIES[code]}
-                    </Option>
-                  ))}
-                </Select>
-              )}
+            <Form.Item label="IBAN">
+              {getFieldDecorator('IBAN', {
+                validateTrigger: 'onBlur',
+                rules: [
+                  {
+                    required: true,
+                    message: 'please input a valid IBAN!',
+                    validator(rule, value = '', cb) {
+                      IBAN.isValid(value) ? cb() : cb(true);
+                    }
+                  }
+                ]
+              })(<Input />)}
             </Form.Item>
-            <Form.Item label="IBAN">{getFieldDecorator('IBAN')(<Input />)}</Form.Item>
             <Button onClick={() => this.setState({isEditing: false})}>Cancel</Button>{' '}
             <Button loading={isLoading} type="primary" htmlType="submit">
               Attach

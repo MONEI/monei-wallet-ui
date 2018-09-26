@@ -11,6 +11,7 @@
     "aws-appsync-react": "^1.1.4",
     "classnames": "^2.2.6",
     "graphql-tag": "^2.9.2",
+    "iban": "^0.0.11",
     "immer": "^1.7.2",
     "libphonenumber-js": "^1.4.7",
     "lodash.groupby": "^4.6.0",
