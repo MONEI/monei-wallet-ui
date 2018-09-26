@@ -8,6 +8,7 @@ import Buy from 'routes/buy';
 
 // Routes
 import Transactions from 'routes/transactions';
+import Sell from 'routes/sell';
 import Transfers from 'routes/transfers';
 import styled from 'styled-components';
 import MainHeader from './MainHeader';
@@ -43,6 +44,7 @@ const MainLayout = ({onLogout, onUpdateUser, location, authData}) => {
           <Route exact path="/" component={Transactions} />
           <Route path="/transfers" component={Transfers} />
           <Route path="/buy" component={Buy} />
+          <Route path="/sell" component={Sell} />
           <Route
             path="/account"
             component={props => <Account {...props} user={user} updateUser={onUpdateUser} />}

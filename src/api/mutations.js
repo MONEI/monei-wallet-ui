@@ -30,6 +30,24 @@ export const NewTransactionMutation = gql`
   }
 `;
 
+export const NewWithdrawalMutation = gql`
+  mutation NewWithdrawalMutation($amount: Int!) {
+    newWithdrawal(amount: $amount) {
+      id
+      from
+      to
+      amount
+      status
+      createdAt
+      updatedAt
+      fromInfo
+      toInfo
+      note
+      income
+    }
+  }
+`;
+
 export const PrepareCheckoutMutation = gql`
   mutation PrepareCheckoutMutation($amount: Int!) {
     prepareCheckout(amount: $amount) {
@@ -39,8 +57,8 @@ export const PrepareCheckoutMutation = gql`
 `;
 
 export const AttachBankAccount = gql`
-  mutation AttachBankAccount($accountHolderName: String!, $country: String!, $IBAN: String!) {
-    attachBankAccount(accountHolderName: $accountHolderName, country: $country, IBAN: $IBAN) {
+  mutation AttachBankAccount($accountHolderName: String!, $IBAN: String!) {
+    attachBankAccount(accountHolderName: $accountHolderName, IBAN: $IBAN) {
       id
       accountHolderName
       country
@@ -48,7 +66,6 @@ export const AttachBankAccount = gql`
     }
   }
 `;
-
 
 export const DetachBankAccount = gql`
   mutation DetachBankAccount {

@@ -3,6 +3,7 @@ import {AttachBankAccount, DetachBankAccount} from 'api/mutations';
 import {GetBankAccountQuery} from 'api/queries';
 import React, {Component, Fragment} from 'react';
 import {compose, graphql} from 'react-apollo';
+import IBAN from 'iban';
 
 const {confirm} = Modal;
 
@@ -62,10 +63,22 @@ class BankAccount extends Component {
         {isEditing ? (
           <Form onSubmit={this.handleSubmit} layout="vertical">
             <Form.Item label="Account holder name">
-              {getFieldDecorator('accountHolderName')(<Input />)}
+              {getFieldDecorator('accountHolderName', {rules: [{required: true}]})(<Input />)}
             </Form.Item>
-            <Form.Item label="Country">{getFieldDecorator('country')(<Input />)}</Form.Item>
-            <Form.Item label="IBAN">{getFieldDecorator('IBAN')(<Input />)}</Form.Item>
+            <Form.Item label="IBAN">
+              {getFieldDecorator('IBAN', {
+                validateTrigger: 'onBlur',
+                rules: [
+                  {
+                    required: true,
+                    message: 'please input a valid IBAN!',
+                    validator(rule, value = '', cb) {
+                      IBAN.isValid(value) ? cb() : cb(true);
+                    }
+                  }
+                ]
+              })(<Input />)}
+            </Form.Item>
             <Button onClick={() => this.setState({isEditing: false})}>Cancel</Button>{' '}
             <Button loading={isLoading} type="primary" htmlType="submit">
               Attach
